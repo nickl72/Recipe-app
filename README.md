@@ -2,10 +2,10 @@
 
 
 ## ERD
-![image](https://imgur.com/S0Bzxcp)
+![image](https://imgur.com/S0Bzxcp.png)
 
 ## WireFrame
-![image](https://imgur.com/F4mJNGx)
+![image](https://imgur.com/F4mJNGx.png)
 - Wire frames show are main six main ejs pages.
 
 ## MVP
