@@ -2,10 +2,10 @@
 
 
 ## ERD
-![ERD](https://imgur.com/S0Bzxcp)
+![image](https://imgur.com/S0Bzxcp)
 
 ## WireFrame
-![Wireframe](https://imgur.com/F4mJNGx)
+![image](https://imgur.com/F4mJNGx)
 
 ## MVP
 •	Users can sign up/log in 
