@@ -38,7 +38,7 @@ module.exports = {
     {
       uniqueKeys: {
         actions_unique: {
-          fields: ['fruitId', 'seasonId']
+          fields: ['recipeId', 'ingredientId']
         }
       }
     });
