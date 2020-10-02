@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class User - to - Ingredient extends Model {
+  class UserIngredient extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,12 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  User - to - Ingredient.init({
+  UserIngredient.init({
     ingredientId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'User-to-Ingredient',
+    modelName: 'UserIngredient',
   });
-  return User - to - Ingredient;
+  return UserIngredient;
 };

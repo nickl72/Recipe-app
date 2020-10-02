@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('saved-recipes', {
+    await queryInterface.createTable('SavedRecipes', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -26,9 +26,16 @@ module.exports = {
         defaultValue: new Date(),
         type: Sequelize.DATE
       }
+    },
+    {
+      uniqueKeys: {
+        actions_unique: {
+          fields: ['userId', 'recipeId']
+        }
+      }
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('saved-recipes');
+    await queryInterface.dropTable('SavedRecipes');
   }
 };

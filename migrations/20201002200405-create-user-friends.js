@@ -1,18 +1,18 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('User-to-Ingredients', {
+    await queryInterface.createTable('UserFriends', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      ingredientId: {
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      userId: {
+      friendId: {
         type: Sequelize.INTEGER,
         allowNull: false
       },
@@ -26,9 +26,16 @@ module.exports = {
         defaultValue: new Date(),
         type: Sequelize.DATE
       }
+    },
+    {
+      uniqueKeys: {
+        actions_unique: {
+          fields: ['userId', 'friendId']
+        }
+      }
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('User-to-Ingredients');
+    await queryInterface.dropTable('UserFriends');
   }
 };
