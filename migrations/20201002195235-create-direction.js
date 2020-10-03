@@ -16,6 +16,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
+      recipeId: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         defaultValue: new Date(),
