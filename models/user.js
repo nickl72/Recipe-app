@@ -27,11 +27,11 @@ module.exports = (sequelize, DataTypes) => {
       //   foreignKey: 'userId',
       //   otherKey: 'friendId'
       // })
-      User.belongsTo(models.User, {
-        through: 'UserFriends',
-        foreignKey: 'friendId',
-        otherKey: 'userId'
-      })
+      // User.belongsTo(models.User, {
+      //   through: 'UserFriends',
+      //   foreignKey: 'friendId',
+      //   otherKey: 'userId'
+      // })
       // define association here
     }
   };

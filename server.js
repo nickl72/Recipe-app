@@ -11,7 +11,7 @@ app.use(methodOverride('_method'));
 app.use(cookieParser());
 
 app.use('/', routes.recipe);
-app.use('/auth', routes.auth)
+app.use('/auth', routes.auth);
 
 
 app.listen(process.env.PORT, () => {
