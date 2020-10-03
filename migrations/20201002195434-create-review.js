@@ -14,6 +14,12 @@ module.exports = {
       review: {
         type: Sequelize.STRING
       },
+      recipeId: {
+        type: Sequelize.INTEGER
+      },
+      userId: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         defaultValue: new Date(),
