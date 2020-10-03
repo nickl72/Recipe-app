@@ -13,7 +13,9 @@
     </header>
     <main>
         <% for (let i = 0; i < recipes.length; i++) { %>
-            <div>Recipe <%=i+1%></div>
+            <div><%=recipes[i].title%>
+                - <%=recipes[i].description%>
+            </div>
             <% } %>
     </main>
 </body>
