@@ -12,12 +12,7 @@
         <a href='/auth/signup'>Sign Up</a>
     </header>
     <main>
-        <% for (let i = 0; i < recipes.length; i++) { %>
-            <div><%=recipes[i].title%>
-                - <%=recipes[i].description%>
-                <a href="/<%=recipes[1].id%>">View Recipe</a>
-            </div>
-            <% } %>
+        <%=recipe.title%> 
     </main>
 </body>
 </html>

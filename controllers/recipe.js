@@ -1,5 +1,7 @@
 const express = require('express');
 const Recipe = require('../models').Recipe;
+const User = require('../models').User;
+const Ingredient = require('../models').Ingredient
 
 const renderViewPage = (req, res) => {
     Recipe.findAll()
@@ -10,6 +12,28 @@ const renderViewPage = (req, res) => {
     })
 };
 
+const renderRecipe = (req, res) => {
+    Recipe.findByPk(req.params.index)
+    .then(foundRecipe => {
+        console.log(foundRecipe.id)
+        Ingredient.findAll(
+            {
+                where: {
+                    recipeId: foundRecipe.id
+                }
+            })
+        .then(founIngredients => {
+            console.log(founIngredients);
+            res.render('recipe.ejs', {
+                recipe: foundRecipe,
+                ingredient: founIngredients
+            })
+        })
+
+    })
+}
+
 module.exports = {
-    renderViewPage
+    renderViewPage,
+    renderRecipe
 };
