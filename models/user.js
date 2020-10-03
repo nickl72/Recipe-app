@@ -22,11 +22,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         otherKey: 'ingredientId'
       });
-      User.hasMany(models.User, {
-        through: 'UserFriends',
-        foreignKey: 'userId',
-        otherKey: 'friendId'
-      })
+      // User.hasMany(models.User, {
+      //   through: 'UserFriends',
+      //   foreignKey: 'userId',
+      //   otherKey: 'friendId'
+      // })
       User.belongsTo(models.User, {
         through: 'UserFriends',
         foreignKey: 'friendId',
