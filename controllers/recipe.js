@@ -2,7 +2,8 @@ const express = require('express');
 const RecipeIngredient = require('../models').RecipeIngredient;
 const Recipe = require('../models').Recipe;
 const User = require('../models').User;
-const Ingredient = require('../models').Ingredient
+const Ingredient = require('../models').Ingredient;
+const Direction = require('../models').Direction;
 
 const renderViewPage = (req, res) => {
     Recipe.findAll()
@@ -26,30 +27,16 @@ const renderRecipe = (req, res) => {
                 include: {
                     model: RecipeIngredient
                     // attributes: ['units']
-            }}
-            // },
-            // {
-            //     model: recipeingredient,
-            //     attributes: ['quantity', 'units']
-            // }
+            }},
+            {
+                model: Direction
+            }
         ]
     })
-    .then(foundRecipe => {
-        console.log(foundRecipe.Ingredients[1].RecipeIngredient.units)
-        // Ingredient.findAll(
-        //     {
-        //         where: {
-        //             recipeId: foundRecipe.id
-        //         }
-        //     })
-        // .then(founIdngredients => {
-        //     console.log(foundngredients);
+    .then(foundRecipe => {        
             res.render('recipe.ejs', {
-                recipe: foundRecipe,
-                // ingredient: foundIngredients
+                recipe: foundRecipe
             })
-        // })
-
     })
 }
 

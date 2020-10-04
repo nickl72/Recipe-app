@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Recipe.belongsTo(models.User, {foreignKey: 'userId'});
-      Recipe.hasMany(models.Direction, {foreignKey: 'id'});
+      Recipe.hasMany(models.Direction, {foreignKey: 'recipeId'});
       Recipe.belongsToMany(models.Ingredient, {
         through: 'RecipeIngredient',
         foreignKey: 'recipeId',
