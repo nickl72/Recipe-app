@@ -12,6 +12,7 @@ app.use(cookieParser());
 
 app.use('/', routes.recipe);
 app.use('/auth', routes.auth);
+app.use('/profile', routes.profile);
 
 
 app.listen(process.env.PORT, () => {

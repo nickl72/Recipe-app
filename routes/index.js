@@ -1,4 +1,5 @@
 module.exports = {
     recipe: require('./recipe'),
-    auth: require('./auth')
+    auth: require('./auth'),
+    profile: require('./profile')
 }
