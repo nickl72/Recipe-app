@@ -12,7 +12,13 @@
         <a href='/auth/signup'>Sign Up</a>
     </header>
     <main>
-        <%=recipe.title%> 
+        <h2><%=recipe.title%></h2>
+        <h3>Ingredients</h3>
+        <ul>
+            <% recipe.Ingredients.forEach(ingredient => { %> 
+                <li><%=ingredient.name%> &nbsp;&nbsp;&nbsp; <%=ingredient.RecipeIngredient.quantity%> <%=ingredient.RecipeIngredient.units%></li>
+            <% }) %>
+        </ul>
     </main>
 </body>
 </html>

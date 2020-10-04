@@ -1,4 +1,5 @@
 const express = require('express');
+const RecipeIngredient = require('../models').RecipeIngredient;
 const Recipe = require('../models').Recipe;
 const User = require('../models').User;
 const Ingredient = require('../models').Ingredient
@@ -16,22 +17,38 @@ const renderViewPage = (req, res) => {
 };
 
 const renderRecipe = (req, res) => {
-    Recipe.findByPk(req.params.index)
-    .then(foundRecipe => {
-        console.log(foundRecipe.id)
-        Ingredient.findAll(
+    Recipe.findByPk(req.params.index, {
+        include: [
             {
-                where: {
-                    recipeId: foundRecipe.id
-                }
-            })
-        .then(founIngredients => {
-            console.log(founIngredients);
+                model: Ingredient,
+                attributes: ['name'],
+                order: ['name'],
+                include: {
+                    model: RecipeIngredient
+                    // attributes: ['units']
+            }}
+            // },
+            // {
+            //     model: recipeingredient,
+            //     attributes: ['quantity', 'units']
+            // }
+        ]
+    })
+    .then(foundRecipe => {
+        console.log(foundRecipe.Ingredients[1].RecipeIngredient.units)
+        // Ingredient.findAll(
+        //     {
+        //         where: {
+        //             recipeId: foundRecipe.id
+        //         }
+        //     })
+        // .then(founIdngredients => {
+        //     console.log(foundngredients);
             res.render('recipe.ejs', {
                 recipe: foundRecipe,
-                ingredient: founIngredients
+                // ingredient: foundIngredients
             })
-        })
+        // })
 
     })
 }
