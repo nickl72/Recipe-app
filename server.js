@@ -9,6 +9,7 @@ const methodOverride = require('method-override');
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
+app.use(express.static('public'));
 
 const verifyToken = (req, res, next) => {
     let token = req.cookies.jwt;
