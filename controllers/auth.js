@@ -7,6 +7,11 @@ const jwt = require('jsonwebtoken');
 const renderSignUp = (req, res) => {
     res.render('signup.ejs')
 }
+
+const renderLogin = (req, res) => {
+    res.render('login.ejs')
+}
+
 const createUser = (req, res) => {
     bcrypt.genSalt(10, (err, salt) => {
         if(err) {
@@ -43,6 +48,7 @@ const createUser = (req, res) => {
 
 module.exports = {
     renderSignUp,
+    renderLogin,
     createUser
 
 }

@@ -6,9 +6,12 @@ const Ingredient = require('../models').Ingredient
 const renderViewPage = (req, res) => {
     Recipe.findAll()
     .then(recipe => {
+        // console.log(recipe)
         res.render('index.ejs', {
             recipes: recipe
         })
+        // console.log(recipe)
+
     })
 };
 
