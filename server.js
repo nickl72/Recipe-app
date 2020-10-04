@@ -10,9 +10,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
 
-app.use('/', routes.recipe);
 app.use('/auth', routes.auth);
-app.use('/profile', routes.profile);
+app.use('/', routes.recipe);
 
 
 app.listen(process.env.PORT, () => {

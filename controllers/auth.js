@@ -5,11 +5,17 @@ const jwt = require('jsonwebtoken');
 
 
 const renderSignUp = (req, res) => {
-    res.render('signup.ejs')
+    res.render('auth/signup.ejs')
 }
 
 const renderLogin = (req, res) => {
-    res.render('login.ejs')
+    res.render('auth/login.ejs')
+}
+
+const profile = (req, res) => {
+    res.render('auth/profile.ejs', {
+        name: 'test'
+    });
 }
 
 const createUser = (req, res) => {
@@ -49,6 +55,6 @@ const createUser = (req, res) => {
 module.exports = {
     renderSignUp,
     renderLogin,
+    profile,
     createUser
-
 }
