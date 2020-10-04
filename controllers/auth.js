@@ -12,10 +12,36 @@ const renderLogin = (req, res) => {
     res.render('auth/login.ejs')
 }
 
-const profile = (req, res) => {
-    res.render('auth/profile.ejs', {
-        name: 'test'
-    });
+const renderProfile = (req, res) => {
+    User.findOne({
+        where: {
+            username: req.body.username
+        }
+    })
+    .then(user => {
+        if(user) {
+            bcrypt.compare(req.body.password, user.hashedpass, (err, match) => {
+                if (match) {
+                    const token = jwt.sign(
+                        {
+                            id: user.id,
+                            username: user.username
+                        },
+                        process.env.JWT_SECRET,
+                        {
+                            expiresIn: '5 days'
+                        }
+                    );
+
+                    res.cookie("jwt", token);
+                    res.redirect('/profile')
+                } else {
+                    res.send('Incorrect password')
+                }
+            })
+        }
+    })
+    
 }
 
 const createUser = (req, res) => {
@@ -55,6 +81,6 @@ const createUser = (req, res) => {
 module.exports = {
     renderSignUp,
     renderLogin,
-    profile,
+    renderProfile,
     createUser
 }
