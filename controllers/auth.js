@@ -5,8 +5,45 @@ const jwt = require('jsonwebtoken');
 
 
 const renderSignUp = (req, res) => {
-    res.render('signup.ejs')
+    res.render('auth/signup.ejs')
 }
+
+const renderLogin = (req, res) => {
+    res.render('auth/login.ejs')
+}
+
+const renderProfile = (req, res) => {
+    User.findOne({
+        where: {
+            username: req.body.username
+        }
+    })
+    .then(user => {
+        if(user) {
+            bcrypt.compare(req.body.password, user.hashedpass, (err, match) => {
+                if (match) {
+                    const token = jwt.sign(
+                        {
+                            id: user.id,
+                            username: user.username
+                        },
+                        process.env.JWT_SECRET,
+                        {
+                            expiresIn: '5 days'
+                        }
+                    );
+
+                    res.cookie("jwt", token);
+                    res.redirect('/profile')
+                } else {
+                    res.send('Incorrect password')
+                }
+            })
+        }
+    })
+    
+}
+
 const createUser = (req, res) => {
     bcrypt.genSalt(10, (err, salt) => {
         if(err) {
@@ -43,6 +80,7 @@ const createUser = (req, res) => {
 
 module.exports = {
     renderSignUp,
+    renderLogin,
+    renderProfile,
     createUser
-
 }
