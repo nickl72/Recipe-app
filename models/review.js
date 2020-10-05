@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Review.belongsTo(models.User, {foreignKey: 'userId'});
-      Review.belongsTo(modesl.Recipe, {foreignKey: 'recipeId'});
+      Review.belongsTo(models.Recipe, {foreignKey: 'recipeId'});
       // define association here
     }
   };

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes | New</title>
+</head>
+<body>
+    <form action='/auth/newRecipe' method="POST">
+    <h3>General</h3>
+        Title: <input type='text' name='title' />
+        Image Url: <input type='text' name='image' />
+        Description: <input type='text' name='description' />
+        User Id: <input type='number' name='userId' />
+
+    <h3>Ingredients</h3>
+
+        Name: <input type='text' name='name' />
+        Amount: <input type='number' name='quantity' />
+        Unit: <input type='text' name='units' />
+
+        Name: <input type='text' name='name' />
+        Amount: <input type='number' name='quantity' />
+        Unit: <input type='text' name='units' />
+
+
+    <h3>Steps</h3>
+        <input type='number' name='step_number' />
+        Step Directions: <input type='text' name='step' />
+
+
+        <input type='submit' value='Create Recipe' />
+    </form>
+
+
+
+
+</body>
+</html>

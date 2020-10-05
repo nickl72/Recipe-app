@@ -1,0 +1,48 @@
+body {
+    background-color: lemonchiffon;
+}
+.contentWrapper {
+    display: flex;
+    justify-content: center;
+}
+li {
+    display: flex;
+    text-align: center;
+    list-style: none;
+    margin: 10px;
+    width: 20vw;
+    background: lightgrey;
+    border-radius: 5%;
+    box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.35);
+}
+.recipeImage {
+    text-align: center;
+    max-width: 18vw;
+    height: 20vw;
+    border-radius: 5%;
+}
+ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.listelements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: space-around;
+}
+h4 {
+    margin: 5px 0 5px 0;
+}
+.imgDescription {
+    margin: 2px;
+}
+a {
+    margin: 4px;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes | <%=user.name%></title>
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <h2><%=user.name%>'s profile</h2>
+    <ul>
+        <li>email: <%=user.email%></li>
+    </ul>
+    <h3>My Saved Recipes</h3>
+    <ul>
+        <% for (let i = 0; i < user.savedRecipes.length; i++) { %>
+        <li>
+            <img src='<%=user.savedRecipes[i].image%>' alt='<%=user.savedRecipes[i].title%>' style="max-width: 100px; max-height: 200px;" />
+            <%=user.savedRecipes[i].title%>
+        </li>
+    <% } %>
+    </ul>
+
+    <h3>My Created Recipes</h3>
+    <ul>
+        <% for (let i = 0; i < user.CreatedRecipes.length; i++) { %>
+        <li>
+            <img src='<%=user.CreatedRecipes[i].image%>' alt='<%=user.CreatedRecipes[i].title%>' style="max-width: 100px; max-height: 200px;" />
+            <%=user.CreatedRecipes[i].title%>
+        </li>
+    <% } %>
+    </ul>
+    <%- include('../partials/footer') %>
+    
+</body>
+</html>

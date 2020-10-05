@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/index.css" />
     <title>Recipes</title>
 </head>
 <body>
@@ -12,9 +13,16 @@
         <a href='/auth/signup'>Sign Up</a>
     </header>
     <main>
-        <% for (let i = 0; i < recipes.length; i++) { %>
-            <div>Recipe <%=i+1%></div>
-            <% } %>
+        <div class='contentWrapper'>
+                <% for (let i = 0; i < recipes.length; i++) { %>
+                    <li class='listelements'>
+                        <h4><%=recipes[i].title%></h4>
+                        <a href="/<%=recipes[i].id%>"><img class='recipeImage' src='<%=recipes[i].image%>' alt='Picture of Recipe'/></a>
+                        <p class='imgDescription'><%=recipes[i].description%></p>
+                        <a href="/<%=recipes[i].id%>">View Recipe</a>                      
+                    </li>
+                <% } %>                
+        </div>
     </main>
 </body>
 </html>
