@@ -3,20 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/index.css" >
+    <link rel="stylesheet" href="/css/headerfooter.css" >
+
     <title>Recipes | <%=user.name%></title>
 </head>
 <body>
     <%- include('../partials/header') %>
+    <main>
     <h2><%=user.name%>'s profile</h2>
     <ul>
         <li>email: <%=user.email%></li>
     </ul>
+    <a href="/auth/new">Create new Recipe</a>
     <h3>My Saved Recipes</h3>
     <ul>
         <% for (let i = 0; i < user.savedRecipes.length; i++) { %>
         <li>
-            <img src='<%=user.savedRecipes[i].image%>' alt='<%=user.savedRecipes[i].title%>' style="max-width: 100px; max-height: 200px;" />
+            <a href="/<%=user.savedRecipes[i].id%>" ><img src='<%=user.savedRecipes[i].image%>' alt='<%=user.savedRecipes[i].title%>' style="max-width: 100px; max-height: 200px;" />
             <%=user.savedRecipes[i].title%>
+            </a>
         </li>
     <% } %>
     </ul>
@@ -25,11 +31,14 @@
     <ul>
         <% for (let i = 0; i < user.CreatedRecipes.length; i++) { %>
         <li>
+            <a href="/<%=user.CreatedRecipes[i].id%>" >
             <img src='<%=user.CreatedRecipes[i].image%>' alt='<%=user.CreatedRecipes[i].title%>' style="max-width: 100px; max-height: 200px;" />
             <%=user.CreatedRecipes[i].title%>
+            </a>
         </li>
     <% } %>
     </ul>
+    </main>
     <%- include('../partials/footer') %>
     
 </body>

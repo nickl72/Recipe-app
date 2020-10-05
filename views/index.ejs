@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/index.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/headerfooter.css" />
     <title>Recipes</title>
 </head>
 <body>
-    <header>
-        <a href='/auth/login'>Login</a>
-        <h1>Recipe App</h1>
-        <a href='/auth/signup'>Sign Up</a>
-    </header>
+    <%- include('./partials/header') %>
     <main>
         <div class='contentWrapper'>
                 <% for (let i = 0; i < recipes.length; i++) { %>
@@ -24,5 +21,6 @@
                 <% } %>                
         </div>
     </main>
+    <%- include('./partials/footer') %>
 </body>
 </html>

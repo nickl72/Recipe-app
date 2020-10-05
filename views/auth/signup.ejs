@@ -2,17 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <link rel="stylesheet" href="/css/headerfooter.css">
     <title>Recipes</title>
 </head>
 <body>
-    <header>Sign Up</header>
-    <form action='/auth/createUser' method='POST'>
-        Name: <input type="text" name='name'/>
-        Username: <input type='text' name='username'/>
-        Password: <input type='text' name='hashedpass'/>
-        Email: <input tyep='text' name='email'>
-        <input type='submit' value='Sign Up'/>
-    </form>
+    <%- include('../partials/header') %>
+    <main>
+        <form action='/auth/createUser' method='POST'>
+            Name: <input type="text" name='name'/>
+            Username: <input type='text' name='username'/>
+            Password: <input type='text' name='hashedpass'/>
+            Email: <input tyep='text' name='email'>
+            <input type='submit' value='Sign Up'/>
+        </form>
+    </main>
+    <%- include('../partials/footer') %>
 </body>
 </html>

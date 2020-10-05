@@ -6,42 +6,64 @@ const RecipeIngredient = require('../models').RecipeIngredient;
 const bcrypt = require('bcryptjs'); 
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+let counter = 0;
 
-
-function recipeIngredientCreate (res, reqBody) {
-    RecipeIngredient.create(reqBody)
+async function recipeIngredientCreate(res, reqBody) {
+    await RecipeIngredient.create(reqBody)
     .then(newRecipeIngredient => {
-        res.redirect('/profile');                         
+        console.log("error here"+counter);
+        counter+=1;
+        // res.redirect('/profile');                       
     })
 }
 
-function ingredientCreate (res, reqBody, name=reqBody.name, quantity=reqBody.quantity, units=reqBody.units) {
+async function ingredientCreate (res, reqBody, name=reqBody.name, quantity=reqBody.quantity, units=reqBody.units) {
     reqBody.name = name;
     reqBody.quantity = quantity;
     reqBody.units = units;
-    Ingredient.create(reqBody)
+    console.log("at function call");
+    console.log(reqBody);
+    await Ingredient.create(reqBody)
     .then(newIngredient => {
+        console.log("in then");
+        console.log(reqBody);
         reqBody.ingredientId = newIngredient.id
-        console.log(reqBody)
         recipeIngredientCreate(res, reqBody);
+        // return new Promise((resolve,reject) => {
+        //     resolve();
+        // })        
     })
-    .catch( (err) => {
-        Ingredient.findOne(
+    .catch( async (err) => {
+        await Ingredient.findOne(
             {
                 where: {
                     name: reqBody.name
                 } 
             }
         )
-        .then(existingIngredient => {
+        .then( async existingIngredient => {
             reqBody.ingredientId = existingIngredient.id
+            console.log("in catch");
             console.log(reqBody)
-            recipeIngredientCreate(res, reqBody);
+            await recipeIngredientCreate(res, reqBody);
+            return new Promise((resolve,reject) => {
+                resolve();
+            })           
+
         })             
+    })
+}
+
+function directionCreate (res, reqBody, step_number=reqBody.step_number, step=reqBody.step) {
+    reqBody.step = step;
+    reqBody.step_number = step_number;
+    Direction.create(reqBody)
+    .then(newDirections => {
+        // console.log(req.body)
+        return;
     })
 
 }
-
 
 
 const renderSignUp = (req, res) => {
@@ -122,24 +144,28 @@ const createUser = (req, res) => {
 
 const createNewRecipe = (req, res) => {
     Recipe.create(req.body)
-    .then(newRecipe => {
+    .then( async newRecipe => {
+        console.log(req.body)
         req.body.recipeId = newRecipe.id
-        Direction.create(req.body)
-        .then(newDirections => {
-            // console.log(req.body)
-            if(typeof(req.body.name)==="object") {
-                for( let i=0; i < req.body.name.length; i++) {
-                    console.log(req.body.name[i]);
-                    const reqBody = {};
-                    Object.assign(reqBody, req.body)
-                    console.log(reqBody)
-                    ingredientCreate(res, reqBody, req.body.name[i], req.body.quantity[i], req.body.units[i]);                    
-                }
-            } else {
-                ingredientCreate(res, req.body);
+        const reqBody = {};
+        Object.assign(reqBody, req.body)
+        if(typeof(req.body.step)==="object") {
+            for( let j=0; j < req.body.step.length; j++) {
+                await directionCreate(res, reqBody, req.body.step_number[j], req.body.step[j]);
             }
-
-        })
+        } else {
+            await directionCreate(res, req.body);
+        }
+        
+        if(typeof(req.body.name)==="object") {
+            for( let i=0; i < req.body.name.length; i++) {
+                Object.assign(reqBody, req.body)
+                await ingredientCreate(res, reqBody, req.body.name[i], req.body.quantity[i], req.body.units[i]);                    
+            }
+        } else {
+            await ingredientCreate(res, reqBody);
+        }
+        res.redirect('/profile');
     })
 }
 
