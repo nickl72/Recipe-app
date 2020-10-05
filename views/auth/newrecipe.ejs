@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/newrecipe">
     <title>Recipes | New</title>
 </head>
 <body>
@@ -16,16 +17,20 @@
     <h3>Ingredients</h3>
         <button id='addIngredient' type='button'>Add another ingredient</button>
         <div id='ingredient'>
+            <p>
             Name: <input type='text' name='name' />
             Amount: <input type='number' name='quantity' />
-            Unit: <input type='text' name='units' />  
+            Unit: <input type='text' name='units' />
+            </p>
         </div>
 
     <h3>Steps</h3>
         <button id='addStep' type='button'>Add another step</button>
         <div id="step">
-            <input class="stepNum" type='number' name='step_number' value='1'/>
-            Step Directions: <input type='text' name='step' /> <br>      
+            <p>
+                <input class="stepNum" type='number' name='step_number' value='1'/>
+                Step Directions: <input type='text' name='step' />      
+            </p>
         </div>
 
 
