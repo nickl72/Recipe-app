@@ -29,7 +29,8 @@ function addStepLine() {
     number = parseInt(stepNum[stepNum.length-1].value);
     const numberInc = number+1;
     const stepNumber = document.createElement("input");
-    stepNumber.setAttribute("class", "stepNum")
+    stepNumber.setAttribute("class", "stepNum");
+    stepNumber.name = "step_number";
     stepNumber.setAttribute("type", "number");
     stepNumber.setAttribute("value", `${numberInc}`);
     const step = document.createElement('input');

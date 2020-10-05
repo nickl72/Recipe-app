@@ -6,12 +6,15 @@ const RecipeIngredient = require('../models').RecipeIngredient;
 const bcrypt = require('bcryptjs'); 
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-
+let counter = 0;
 
 function recipeIngredientCreate (res, reqBody) {
     RecipeIngredient.create(reqBody)
     .then(newRecipeIngredient => {
-        res.redirect('/profile');                         
+        console.log("error here"+counter);
+        counter+=1;
+        res.redirect('/profile');   
+                              
     })
 }
 
@@ -20,12 +23,13 @@ function ingredientCreate (res, reqBody, name=reqBody.name, quantity=reqBody.qua
     reqBody.quantity = quantity;
     reqBody.units = units;
     Ingredient.create(reqBody)
-    .then(newIngredient => {
+    .then(async newIngredient => {
         reqBody.ingredientId = newIngredient.id
-        console.log(reqBody)
-        recipeIngredientCreate(res, reqBody);
+        // console.log(reqBody)
+        await recipeIngredientCreate(res, reqBody);
     })
     .catch( (err) => {
+        console.log(reqBody)
         Ingredient.findOne(
             {
                 where: {
@@ -33,10 +37,10 @@ function ingredientCreate (res, reqBody, name=reqBody.name, quantity=reqBody.qua
                 } 
             }
         )
-        .then(existingIngredient => {
+        .then( async existingIngredient => {
             reqBody.ingredientId = existingIngredient.id
-            console.log(reqBody)
-            recipeIngredientCreate(res, reqBody);
+                  console.log("error") // console.log(reqBody)
+            await recipeIngredientCreate(res, reqBody);
         })             
     })
 }
@@ -131,7 +135,8 @@ const createUser = (req, res) => {
 
 const createNewRecipe = (req, res) => {
     Recipe.create(req.body)
-    .then(newRecipe => {
+    .then( async newRecipe => {
+        console.log(req.body)
         req.body.recipeId = newRecipe.id
         const reqBody = {};
         Object.assign(reqBody, req.body)
@@ -143,13 +148,10 @@ const createNewRecipe = (req, res) => {
             directionCreate(res, req.body);
         }
         
-        if(typeof(reqBody.name)==="object") {
-            for( let i=0; i < reqBody.name.length; i++) {
-                // console.log(req.body.name[i]);
-                // const reqBody = {};
-                // Object.assign(reqBody, req.body)
-                // console.log(reqBody)
-                ingredientCreate(res, reqBody, req.body.name[i], req.body.quantity[i], req.body.units[i]);                    
+        if(typeof(req.body.name)==="object") {
+            for( let i=0; i < req.body.name.length; i++) {
+                Object.assign(reqBody, req.body)
+                await ingredientCreate(res, reqBody, req.body.name[i], req.body.quantity[i], req.body.units[i]);                    
             }
         } else {
             ingredientCreate(res, reqBody);
