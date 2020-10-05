@@ -8,29 +8,33 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 let counter = 0;
 
-function recipeIngredientCreate (res, reqBody) {
-    RecipeIngredient.create(reqBody)
+async function recipeIngredientCreate(res, reqBody) {
+    await RecipeIngredient.create(reqBody)
     .then(newRecipeIngredient => {
         console.log("error here"+counter);
         counter+=1;
-        res.redirect('/profile');   
-                              
+        // res.redirect('/profile');                       
     })
 }
 
-function ingredientCreate (res, reqBody, name=reqBody.name, quantity=reqBody.quantity, units=reqBody.units) {
+async function ingredientCreate (res, reqBody, name=reqBody.name, quantity=reqBody.quantity, units=reqBody.units) {
     reqBody.name = name;
     reqBody.quantity = quantity;
     reqBody.units = units;
-    Ingredient.create(reqBody)
-    .then(async newIngredient => {
+    console.log("at function call");
+    console.log(reqBody);
+    await Ingredient.create(reqBody)
+    .then(newIngredient => {
+        console.log("in then");
+        console.log(reqBody);
         reqBody.ingredientId = newIngredient.id
-        // console.log(reqBody)
-        await recipeIngredientCreate(res, reqBody);
+        recipeIngredientCreate(res, reqBody);
+        // return new Promise((resolve,reject) => {
+        //     resolve();
+        // })        
     })
-    .catch( (err) => {
-        console.log(reqBody)
-        Ingredient.findOne(
+    .catch( async (err) => {
+        await Ingredient.findOne(
             {
                 where: {
                     name: reqBody.name
@@ -39,8 +43,13 @@ function ingredientCreate (res, reqBody, name=reqBody.name, quantity=reqBody.qua
         )
         .then( async existingIngredient => {
             reqBody.ingredientId = existingIngredient.id
-                  console.log("error") // console.log(reqBody)
+            console.log("in catch");
+            console.log(reqBody)
             await recipeIngredientCreate(res, reqBody);
+            return new Promise((resolve,reject) => {
+                resolve();
+            })           
+
         })             
     })
 }
@@ -142,10 +151,10 @@ const createNewRecipe = (req, res) => {
         Object.assign(reqBody, req.body)
         if(typeof(req.body.step)==="object") {
             for( let j=0; j < req.body.step.length; j++) {
-                directionCreate(res, reqBody, req.body.step_number[j], req.body.step[j]);
+                await directionCreate(res, reqBody, req.body.step_number[j], req.body.step[j]);
             }
         } else {
-            directionCreate(res, req.body);
+            await directionCreate(res, req.body);
         }
         
         if(typeof(req.body.name)==="object") {
@@ -154,8 +163,9 @@ const createNewRecipe = (req, res) => {
                 await ingredientCreate(res, reqBody, req.body.name[i], req.body.quantity[i], req.body.units[i]);                    
             }
         } else {
-            ingredientCreate(res, reqBody);
+            await ingredientCreate(res, reqBody);
         }
+        res.redirect('/profile');
     })
 }
 
