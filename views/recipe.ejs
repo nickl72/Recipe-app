@@ -6,13 +6,25 @@
     <title>Recipes</title>
 </head>
 <body>
-    <header>
-        <a href='/auth/login'>Login</a>
-        <h1>Recipe App</h1>
-        <a href='/auth/signup'>Sign Up</a>
-    </header>
+    <%- include('partials/header') %>
     <main>
-        <%=recipe.title%> 
+        <h2><%=recipe.title%></h2>
+        <img src='<%=recipe.image%>' alt='<%=recipe.name%>' />
+        <h3>Ingredients</h3>
+        <ul>
+            <% recipe.Ingredients.forEach(ingredient => { %> 
+                <li><%=ingredient.name%> &nbsp;&nbsp;&nbsp; 
+                    <%=ingredient.RecipeIngredient.quantity%> 
+                    <%=ingredient.RecipeIngredient.units%></li>
+            <% }) %>
+        </ul>
+        <h3>Directions</h3>
+        <ol>
+            <% recipe.Directions.forEach(direction => { %>
+                <li><%=direction.step%></li>
+            <% }) %>
+        </ol>
     </main>
+    <%- include('partials/footer') %>
 </body>
 </html>
