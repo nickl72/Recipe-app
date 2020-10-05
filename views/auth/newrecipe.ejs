@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/public/css/newrecipe">
+    <link rel="stylesheet" href="/css/newrecipe.css">
+    <link rel="stylesheet" href="/css/headerfooter.css">
     <title>Recipes | New</title>
 </head>
 <body>
+    <%- include('../partials/header') %>
     <form action='/auth/newRecipe' method="POST">
     <h3>General</h3>
         Title: <input type='text' name='title' />
@@ -37,7 +39,7 @@
 
         <input type='submit' value='Create Recipe' />
     </form>
-
+    <%- include('../partials/footer') %>
 
 
     <script src='/javascript/script.js'></script>
