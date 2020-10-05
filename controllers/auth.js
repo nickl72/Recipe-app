@@ -39,9 +39,18 @@ function ingredientCreate (res, reqBody, name=reqBody.name, quantity=reqBody.qua
             recipeIngredientCreate(res, reqBody);
         })             
     })
-
 }
 
+function directionCreate (res, reqBody, step_number=reqBody.step_number, step=reqBody.step) {
+    reqBody.step = step;
+    reqBody.step_number = step_number;
+    Direction.create(reqBody)
+    .then(newDirections => {
+        // console.log(req.body)
+        return;
+    })
+
+}
 
 
 const renderSignUp = (req, res) => {
@@ -124,22 +133,27 @@ const createNewRecipe = (req, res) => {
     Recipe.create(req.body)
     .then(newRecipe => {
         req.body.recipeId = newRecipe.id
-        Direction.create(req.body)
-        .then(newDirections => {
-            // console.log(req.body)
-            if(typeof(req.body.name)==="object") {
-                for( let i=0; i < req.body.name.length; i++) {
-                    console.log(req.body.name[i]);
-                    const reqBody = {};
-                    Object.assign(reqBody, req.body)
-                    console.log(reqBody)
-                    ingredientCreate(res, reqBody, req.body.name[i], req.body.quantity[i], req.body.units[i]);                    
-                }
-            } else {
-                ingredientCreate(res, req.body);
+        const reqBody = {};
+        Object.assign(reqBody, req.body)
+        if(typeof(req.body.step)==="object") {
+            for( let j=0; j < req.body.step.length; j++) {
+                directionCreate(res, reqBody, req.body.step_number[j], req.body.step[j]);
             }
-
-        })
+        } else {
+            directionCreate(res, req.body);
+        }
+        
+        if(typeof(reqBody.name)==="object") {
+            for( let i=0; i < reqBody.name.length; i++) {
+                // console.log(req.body.name[i]);
+                // const reqBody = {};
+                // Object.assign(reqBody, req.body)
+                // console.log(reqBody)
+                ingredientCreate(res, reqBody, req.body.name[i], req.body.quantity[i], req.body.units[i]);                    
+            }
+        } else {
+            ingredientCreate(res, reqBody);
+        }
     })
 }
 
