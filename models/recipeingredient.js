@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const ingredient = require('./ingredient');
 module.exports = (sequelize, DataTypes) => {
   class RecipeIngredient extends Model {
     /**
@@ -10,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      RecipeIngredient.belongsTo(models.Ingredient, {foreignKey: 'ingredientId'})
       // define association here
     }
   };
