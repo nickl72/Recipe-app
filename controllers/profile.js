@@ -7,12 +7,12 @@ const renderProfile = (req,res) => {
         include: [{
             association: 'CreatedRecipes',
             model: Recipe,
-            attributes: ['title', 'image']
+            attributes: ['title', 'image', 'id']
         },
     {
         association: 'savedRecipes',
         model: Recipe,
-        attributes: ['title', 'image']
+        attributes: ['title', 'image', 'id']
     }]
     }
         )
