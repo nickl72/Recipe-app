@@ -40,7 +40,27 @@ const renderRecipe = (req, res) => {
     })
 }
 
+const deleteRecipe = (req, res) => {
+    RecipeIngredient.destroy({
+        where: {recipeId: req.params.index}
+    })
+    .then(() => {
+        Direction.destroy({
+            where: {recipeId: req.params.index}
+        })
+        .then(() => {
+            Recipe.destroy({
+                where: {id: req.params.index}
+            })
+            .then(() => {
+                res.redirect('/profile')
+            })
+        })
+    })
+}
+
 module.exports = {
     renderViewPage,
-    renderRecipe
+    renderRecipe,
+    deleteRecipe
 };

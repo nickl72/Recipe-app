@@ -23,6 +23,7 @@ const renderProfile = (req,res) => {
     })
 }
 
+
 module.exports = {
     renderProfile
 }
