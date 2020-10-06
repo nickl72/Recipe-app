@@ -94,6 +94,7 @@ const renderNewRecipe = (req, res) => {
             }]
         })
         .then (editRecipe => {
+            console.log(editRecipe.Ingredients[0].RecipeIngredients)
             res.render('auth/newrecipe.ejs' ,{
                 edit: req.query.edit,
                 recipe: editRecipe
