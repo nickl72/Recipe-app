@@ -22,6 +22,4 @@ function removeCookie() {
     login.removeEventListener('click', removeCookie);
     login.href='/auth/login';
 }
-console.log('hi');
 checkCookie();
-console.log(document.cookie);

@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
         through: 'SavedRecipes',
         foreignKey: 'recipeId',
         otherKey: 'userId'
-      })
+      });
+      Recipe.hasMany(models.Review, {foreignKey: 'recipeId'});
       // define association here
     }
   };

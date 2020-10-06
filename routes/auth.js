@@ -11,4 +11,6 @@ router.get('/new', ctrl.auth.renderNewRecipe);
 router.post('/createUser', ctrl.auth.createUser);
 router.post('/newRecipe', ctrl.auth.createNewRecipe);
 
+router.put('/:index', ctrl.auth.editRecipe)
+
 module.exports = router;
