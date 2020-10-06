@@ -32,7 +32,7 @@ function addStepLine() {
     const stepNum = document.getElementsByClassName('stepNum');
     number = parseInt(stepNum[stepNum.length-1].value);
     const numberInc = number+1;
-    const newStep =  `<input class="stepNum" type='number' name='step_number' value='${numberInc}'/> Step Directions: <input type='text' name='step' /> `
+    const newStep =  `<input class="stepNum" type='number' name='step_number' value='${numberInc}'/> Step Directions: <input type='text' name='step' size="150"/> `
     tagStep.innerHTML = newStep;
     stepDiv.appendChild(tagStep);
     // const stepNumber = document.createElement("input");
