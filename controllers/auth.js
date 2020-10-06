@@ -94,7 +94,6 @@ const renderNewRecipe = (req, res) => {
             }]
         })
         .then (editRecipe => {
-            console.log(editRecipe.Ingredients[0].RecipeIngredients)
             res.render('auth/newrecipe.ejs' ,{
                 edit: req.query.edit,
                 recipe: editRecipe
@@ -199,7 +198,10 @@ const createNewRecipe = (req, res) => {
 }
 
 const editRecipe = (req, res) => {
-
+    Recipe.findByPk(req.params.index)
+    .then(recipeEdit => {
+        
+    })
 }
 
 module.exports = {

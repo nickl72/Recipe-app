@@ -10,6 +10,7 @@
 <body>
     <%- include('../partials/header') %>
     <%if (edit==="false") {
+        buttonValue = 'Create Recipe'
         path='/auth/newRecipe'
         recipe.title = ''
         recipe.image = ''
@@ -20,7 +21,8 @@
         }]
         recipe.Directions =[{step_number: [1], step: ['']}]
     } else {%>
-        <%path='/auth/editRecipe?_method=PUT'%>
+        <%buttonValue = 'Edit Recipe'
+        path='/auth/rcipe.id?_method=PUT'%>
     <%}%>
     <form action="<%=path%>" method="POST">
     <h3>General</h3>
@@ -52,7 +54,7 @@
         <%}%>
 
 
-        <input type='submit' value='Create Recipe' />
+        <input type='submit' value="<%=buttonValue%>" />
     </form>
 
     <%- include('../partials/footer') %>
