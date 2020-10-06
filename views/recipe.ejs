@@ -28,12 +28,14 @@
         </ol>
         <h3>Reviews</h3>
         <ul>
-            <% for (let i = 0; i < recipe.Reviews.length; i++) { %>
+            <% for (let i = 0; i < reviews.length; i++) { %>
                 <li class="review">
-                    <h4><%=recipe.Reviews[i].User.username%> gave this recipe 
-                        <%=recipe.Reviews[i].rating%> stars
+                    <h4 class="review-heading">
+                        <a href='/profile/<%=reviews[i].User.username%>' ><%=reviews[i].User.name%></a>
+                        gave this recipe 
+                        <%=reviews[i].rating%> stars
                     </h4>
-                    <p class="review"><%=recipe.Reviews[i].review%></p>
+                    <p class="review-text"><%=reviews[i].review%></p>
                 </li>
 
             <% } %>

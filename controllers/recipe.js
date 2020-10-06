@@ -37,7 +37,7 @@ const renderRecipe = (req, res) => {
                 include: [
                     {
                         model: User,
-                        attributes: ['id', 'username']                       
+                        attributes: ['username', 'name']                       
                     }
                 ]
             }
@@ -45,7 +45,8 @@ const renderRecipe = (req, res) => {
     })
     .then(foundRecipe => {    
             res.render('recipe.ejs', {
-                recipe: foundRecipe
+                recipe: foundRecipe,
+                reviews: foundRecipe.Reviews // this variable improves readability of ejs file
             })
     })
 }
