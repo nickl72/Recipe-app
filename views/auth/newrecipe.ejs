@@ -9,15 +9,30 @@
 </head>
 <body>
     <%- include('../partials/header') %>
-    <form action='/auth/newRecipe' method="POST">
+    <%if (edit==="false") {
+        path='/auth/newRecipe'
+        recipe.title = ''
+        recipe.image = ''
+        recipe.description = ''
+        recipe.userId = ''
+        recipe.Ingredients = {name: [''], quantity: [''], units: ['']}
+        recipe.Directions = {step_number: [''], step: ['']}
+    } else {%>
+        <%path='/auth/editRecipe?_method=PUT'
+
+
+        %>
+    <%}%>
+    <form action="<%=path%>" method="POST">
     <h3>General</h3>
-        Title: <input type='text' name='title' />
-        Image Url: <input type='text' name='image' />
-        Description: <input type='text' name='description' />
-        User Id: <input type='number' name='userId' />
+        Title: <input type='text' name='title' value='<%=recipe.title%>' />
+        Image Url: <input type='text' name='image' value="<%=recipe.image%>" />
+        Description: <input type='text' name='description' value="<%=recipe.description%>" />
+        User Id: <input type='number' name='userId' value="<%=recipe.userId%>" />
 
     <h3>Ingredients</h3>
         <button id='addIngredient' type='button'>Add another ingredient</button>
+
         <div id='ingredient'>
             <p>
             Name: <input type='text' name='name' />
@@ -39,6 +54,7 @@
 
         <input type='submit' value='Create Recipe' />
     </form>
+
     <%- include('../partials/footer') %>
 
 

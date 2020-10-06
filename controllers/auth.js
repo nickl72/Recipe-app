@@ -75,7 +75,35 @@ const renderLogin = (req, res) => {
 }
 
 const renderNewRecipe = (req, res) => {
-    res.render('auth/newrecipe.ejs')
+    if(req.query.edit==='false') {
+        res.render('auth/newrecipe.ejs' ,{
+            edit: req.query.edit,
+            recipe: {}
+        })
+    } else if( req.query.edit==='true') {
+        Recipe.findByPk(parseInt(req.query.recipeid), {
+            include: [
+            {
+                model: Ingredient,
+                include: {
+                    model: RecipeIngredient
+                }
+            },
+            {
+                model: Direction
+            }]
+        })
+        .then (editRecipe => {
+            res.render('auth/newrecipe.ejs' ,{
+                edit: req.query.edit,
+                recipe: editRecipe
+            })
+        })
+
+    } else {
+        res.return("error");
+    }
+
 }
 
 const renderProfile = (req, res) => {
@@ -169,11 +197,16 @@ const createNewRecipe = (req, res) => {
     })
 }
 
+const editRecipe = (req, res) => {
+
+}
+
 module.exports = {
     renderSignUp,
     renderLogin,
     renderProfile,
     createUser,
     renderNewRecipe,
-    createNewRecipe
+    createNewRecipe,
+    editRecipe
 }
