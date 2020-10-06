@@ -6,6 +6,7 @@ const RecipeIngredient = require('../models').RecipeIngredient;
 const bcrypt = require('bcryptjs'); 
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const ingredient = require('../models/ingredient');
 let counter = 0;
 
 async function recipeIngredientCreate(res, reqBody) {
@@ -86,7 +87,8 @@ const renderNewRecipe = (req, res) => {
             {
                 model: Ingredient,
                 include: {
-                    model: RecipeIngredient
+                    model: RecipeIngredient,
+                    where: {recipeId: parseInt(req.query.recipeid)}
                 }
             },
             {
@@ -94,6 +96,9 @@ const renderNewRecipe = (req, res) => {
             }]
         })
         .then (editRecipe => {
+            editRecipe.Ingredients.forEach(ingredient => {
+                console.log(ingredient.RecipeIngredients)
+            })
             res.render('auth/newrecipe.ejs' ,{
                 edit: req.query.edit,
                 recipe: editRecipe

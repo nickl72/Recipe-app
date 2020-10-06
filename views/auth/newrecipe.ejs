@@ -37,8 +37,8 @@
             <div id='ingredient'>
                 <p>
                 Name: <input type='text' name='name' value="<%=recipe.Ingredients[i].name%>"/>
-                Amount: <input type='number' name='quantity' value="<%=recipe.Ingredients[i].RecipeIngredients[i].quantity%>" />
-                Unit: <input type='text' name='units' value="<%=recipe.Ingredients[i].RecipeIngredients[i].units%>"/>
+                Amount: <input type='number' name='quantity' value="<%=recipe.Ingredients[i].RecipeIngredients[0].quantity%>" />
+                Unit: <input type='text' name='units' value="<%=recipe.Ingredients[i].RecipeIngredients[0].units%>"/>
                 </p>
             </div>
         <%}%>
