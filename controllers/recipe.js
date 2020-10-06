@@ -1,4 +1,5 @@
 const express = require('express');
+const recipe = require('../models/recipe');
 const RecipeIngredient = require('../models').RecipeIngredient;
 const Recipe = require('../models').Recipe;
 const User = require('../models').User;
@@ -7,7 +8,6 @@ const Direction = require('../models').Direction;
 const Review = require('../models').Review;
 
 const renderViewPage = (req, res) => {
-    console.log(req.user);
     Recipe.findAll()
     .then(recipe => {
         res.render('index.ejs', {
@@ -25,34 +25,36 @@ const renderRecipe = (req, res) => {
             {
                 model: Ingredient,
                 attributes: ['name'],
-                order: ['name'],
                 include: {
                     model: RecipeIngredient
                     // attributes: ['units']
-            }},
-            {
-                model: Direction
-            },
-            {
-                model: Review,
-                include: [
-                    {
-                        model: User,
-                        attributes: ['username', 'name']                       
-                    }
-                ]
-            }
-        ]
+            }}]
     })
     .then(foundRecipe => {    
-        console.log('\n\n\n',req.user,'\n\n\n')
+        // Need findAll to sort by step_number
+        Direction.findAll({
+            where: {recipeId: foundRecipe.id},
+            order: [['step_number']]
 
-        // console.log(foundRecipe)
-            res.render('recipe.ejs', {
-                recipe: foundRecipe,
-                reviews: foundRecipe.Reviews, // this variable improves readability of ejs file
-                user: req.user
+        }).then(directions => {
+            // console.log(directions);
+            // Need findAll to sort by creation Date
+            Review.findAll({
+                where: {recipeId: foundRecipe.id},
+                include: [{
+                    model: User,
+                    attributes: ['name', 'username']
+                }],
+                order: [['createdAt', 'DESC']]
+            }).then(reviews => {
+                res.render('recipe.ejs', {
+                    recipe: foundRecipe,
+                    reviews: reviews, // this variable improves readability of ejs file
+                    directions: directions,
+                    user: req.user
+                })
             })
+        })
     })
 }
 

@@ -30,12 +30,14 @@ const deleteReview = (req, res) => {
 }
 
 const editReview = (req, res) => {
+    console.log(req.query);
     Review.update(req.body, {
         where: {id: req.params.reviewId},
         returning: true
     })
     .then(updatedReview => {
-        res.redirect(`/${req.query.recipeId}`)
+        console.log(updatedReview[1][0].recipeId)
+        res.redirect(`/${updatedReview[1][0].recipeId}`)
     })
 }
 
