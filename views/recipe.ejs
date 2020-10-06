@@ -26,6 +26,18 @@
                 <li><%=direction.step%></li>
             <% }) %>
         </ol>
+        <h3>Reviews</h3>
+        <ul>
+            <% for (let i = 0; i < recipe.Reviews.length; i++) { %>
+                <li class="review">
+                    <h4><%=recipe.Reviews[i].User.username%> gave this recipe 
+                        <%=recipe.Reviews[i].rating%> stars
+                    </h4>
+                    <p class="review"><%=recipe.Reviews[i].review%></p>
+                </li>
+
+            <% } %>
+        </ul>
     </main>
     <%- include('partials/footer') %>
 </body>

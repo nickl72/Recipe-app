@@ -4,6 +4,7 @@ const Recipe = require('../models').Recipe;
 const User = require('../models').User;
 const Ingredient = require('../models').Ingredient;
 const Direction = require('../models').Direction;
+const Review = require('../models').Review;
 
 const renderViewPage = (req, res) => {
     Recipe.findAll()
@@ -30,10 +31,19 @@ const renderRecipe = (req, res) => {
             }},
             {
                 model: Direction
+            },
+            {
+                model: Review,
+                include: [
+                    {
+                        model: User,
+                        attributes: ['id', 'username']                       
+                    }
+                ]
             }
         ]
     })
-    .then(foundRecipe => {        
+    .then(foundRecipe => {    
             res.render('recipe.ejs', {
                 recipe: foundRecipe
             })
