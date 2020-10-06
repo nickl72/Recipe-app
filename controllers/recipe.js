@@ -9,9 +9,9 @@ const Review = require('../models').Review;
 const renderViewPage = (req, res) => {
     Recipe.findAll()
     .then(recipe => {
-        // console.log(recipe)
         res.render('index.ejs', {
-            recipes: recipe
+            recipes: recipe,
+            // user: 
         })
         // console.log(recipe)
 
@@ -44,9 +44,13 @@ const renderRecipe = (req, res) => {
         ]
     })
     .then(foundRecipe => {    
+        console.log('\n\n\n',req.user,'\n\n\n')
+
+        // console.log(foundRecipe)
             res.render('recipe.ejs', {
                 recipe: foundRecipe,
-                reviews: foundRecipe.Reviews // this variable improves readability of ejs file
+                reviews: foundRecipe.Reviews, // this variable improves readability of ejs file
+                user: req.user
             })
     })
 }

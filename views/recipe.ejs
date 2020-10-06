@@ -26,7 +26,13 @@
                 <li><%=direction.step%></li>
             <% }) %>
         </ol>
+
         <h3>Reviews</h3>
+        <form action='/review/<%=recipe.id%>' method="POST">
+            Review: <input type="text" name="review" />
+            Rating: <input type="number" name="rating" min="0" max="5" />
+            <input type="submit" value="Add Review" />
+        </form>
         <ul>
             <% for (let i = 0; i < reviews.length; i++) { %>
                 <li class="review">
@@ -36,10 +42,17 @@
                         <%=reviews[i].rating%> stars
                     </h4>
                     <p class="review-text"><%=reviews[i].review%></p>
+                    <% if (reviews[i].User.username === user.username) { %>
+                        <form action='' method="POST">
+                            <input type="submit" value="Delete Review" />
+                        </form>
+                        <button>Edit Review</button>
+                    <% } %>
                 </li>
 
             <% } %>
         </ul>
+
     </main>
     <%- include('partials/footer') %>
 </body>

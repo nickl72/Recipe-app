@@ -1,5 +1,6 @@
 module.exports = {
     recipe: require('./recipe'),
     auth: require('./auth'),
-    profile: require('./profile')
+    profile: require('./profile'),
+    review: require('./review')
 }

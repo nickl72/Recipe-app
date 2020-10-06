@@ -15,9 +15,9 @@ const verifyToken = (req, res, next) => {
     let token = req.cookies.jwt;
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedUser) => {
         if (err || !decodedUser) {
-            return res.send('jwt error');
+            return req.user = null;
         } else {
-            req.user = decodedUser
+            req.user = decodedUser;
         }
         next();
     })
@@ -25,7 +25,8 @@ const verifyToken = (req, res, next) => {
 
 app.use('/auth', routes.auth);
 app.use('/profile', verifyToken, routes.profile)
-app.use('/', routes.recipe);
+app.use('/review', verifyToken, routes.review)
+app.use('/', verifyToken, routes.recipe);
 
 
 app.listen(process.env.PORT, () => {
