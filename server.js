@@ -15,7 +15,10 @@ const verifyToken = (req, res, next) => {
     let token = req.cookies.jwt;
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedUser) => {
         if (err || !decodedUser) {
-            return req.user = null;
+            req.user = {
+                username: null,
+                id: null
+            }
         } else {
             req.user = decodedUser;
         }

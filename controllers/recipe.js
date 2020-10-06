@@ -7,6 +7,7 @@ const Direction = require('../models').Direction;
 const Review = require('../models').Review;
 
 const renderViewPage = (req, res) => {
+    console.log(req.user);
     Recipe.findAll()
     .then(recipe => {
         res.render('index.ejs', {
