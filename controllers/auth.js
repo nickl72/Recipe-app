@@ -207,22 +207,52 @@ const editRecipe = (req, res) => {
         returning: true
     })
     .then((updateRecipe) => {
+        if(typeof(req.body.step)!=="object") {
+            req.body.step = [req.body.step];
+            console.log(`${req.body.step} made it to step`)
+        } 
+        if(typeof(req.body.step_number)!=="object") {
+            req.body.step_number = [req.body.step_number]
+            console.log(`${req.body.step_number} made it to step_number`)
+        }
+        if(typeof(req.body.directionId)!=="object") {
+            req.body.directionId = [req.body.directionId]
+            console.log(`${req.body.directionId} made it to directionId`)
+        }
+        console.log(req.body.directionId)
         req.body.step.forEach(async (step, i) => {
-        const temp = {step: step, step_number: req.body.step_number[i], id: req.body.directionId[i], recipeId: req.params.index}
+            console.log('In the for each')
+        const temp = {step: step, step_number: req.body.step_number[i], recipeId: req.params.index}
+        if(req.body.directionId.length > i) {
+            temp.directionId = req.body.directionId[i]
+        }
+            console.log(req.body.directionId)
+            console.log(req.body.directionId[i])
+            console.log("temp= ",temp.directionId)
                 await Direction.update(temp, {
-                    where: {id: temp.id}
+                    where: {id: temp.directionId}
                 })
                 .then((updatedDirections) => {
+                    console.log("Made it through the update")
                     return 
                 })
                 .catch( async (err)=> {
+                    console.log("Made it to the catch")
                     await Direction.create(temp)
                     .then((createdDirection)=>{
                         return ;
                     })
                 })
         })
+        console.log('made it to the ingredient foreach')
+        if(typeof(req.body.name)==="string") {
+            req.body.name = [req.body.name];
+            req.body.quantity = [req.body.quantity];
+            req.body.units = [req.body.units];
+            req.body.ingredientId = [req.body.ingredientId];
+        }
         req.body.name.forEach(async (name, i) => {
+        console.log('made it in the forEach')
         const tempIn = {name: name, quantity: req.body.quantity[i], units: req.body.units[i],
         recipeId: req.params.index, ingredientId: req.body.ingredientId[i]}
             await RecipeIngredient.update(tempIn, {
@@ -232,8 +262,8 @@ const editRecipe = (req, res) => {
             })
             .then((updatedRecipeIngredients) => {
                 console.log(updatedRecipeIngredients);
-                return
-                // res.redirect(`/${req.params.index}`)
+                // return
+                res.redirect(`/${req.params.index}`)
             })
             .catch(async (err)=> {
                 await Ingredient.findOne(
@@ -245,37 +275,28 @@ const editRecipe = (req, res) => {
                 )
                 .then(async foundIngredient => {
                     tempIn.ingredientId = foundIngredient.id
-                    console.log(foundIngredient.id)
-                    console.log(tempIn.ingredientId)
-                    console.log('Here it is failing')
-                    console.log(tempIn)
                     await RecipeIngredient.create(tempIn)
                     .then( (foundIngredient)=> {
-                        res.redirect(`/${req.params.index}`)
+                        return
+                        // res.redirect(`/${req.params.index}`)
                     })
 
                 })
                 .catch(async (err)=> {
                     console.log("Made it here to the new ingredient")
                     Ingredient.create(tempIn)
-                        .then(async foundIngredient => {
-                            tempIn.ingredientId = foundIngredient.id
-                            console.log(foundIngredient.id)
-                            console.log(tempIn.ingredientId)
-                            console.log('Here it is failing')
-                            console.log(tempIn)
-                            await RecipeIngredient.create(tempIn)
-                            .then( (foundIngredient)=> {
-                                res.redirect(`/${req.params.index}`)
-                            })
-                        
-                        
-                        
-                        res.redirect(`/${req.params.index}`)
+                    .then(async foundIngredient => {
+                        tempIn.ingredientId = foundIngredient.id
+                        await RecipeIngredient.create(tempIn)
+                        .then( (foundIngredient)=> {
+                            return
+   
+                        })
                     })
                 })
             })
         })
+        res.redirect(`/${req.params.index}`)
     })
 }
 
