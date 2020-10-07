@@ -1,0 +1,16 @@
+body, html {
+    padding: 0;
+    margin: 0;
+}
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+body {
+    background: #D6D4A0;
+}
+
+.hidden {
+    display: none;
+}

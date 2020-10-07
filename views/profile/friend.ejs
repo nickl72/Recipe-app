@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/index.css" >
     <link rel="stylesheet" href="/css/headerfooter.css" >
 
@@ -31,9 +32,6 @@
             <img src='<%=user.CreatedRecipes[i].image%>' alt='<%=user.CreatedRecipes[i].title%>' style="max-width: 100px; max-height: 200px;" />
             <%=user.CreatedRecipes[i].title%>
             </a>
-            <form action='/<%=user.CreatedRecipes[i].id%>?_method=DELETE' method="POST">
-                <input type="submit" value='Delete'/>
-            </form>
         </li>
     <% } %>
     </ul>
