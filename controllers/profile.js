@@ -65,6 +65,9 @@ const createSavedRecipe = (req, res) => {
     .then(redirectprofile => {
             res.redirect('/profile')
     })
+    .catch(() => {
+        res.redirect('/profile')
+    })
 }
 const removeSavedRecipe = (req, res) => {
     SavedRecipes.destroy({
