@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const ingredient = require('../models/ingredient');
+const { Template } = require('ejs');
 let counter = 0;
 
 async function recipeIngredientCreate(res, reqBody) {
@@ -22,12 +23,12 @@ async function ingredientCreate (res, reqBody, name=reqBody.name, quantity=reqBo
     reqBody.name = name;
     reqBody.quantity = quantity;
     reqBody.units = units;
-    console.log("at function call");
-    console.log(reqBody);
+    // console.log("at function call");
+    // console.log(reqBody);
     await Ingredient.create(reqBody)
     .then(newIngredient => {
-        console.log("in then");
-        console.log(reqBody);
+        // console.log("in then");
+        // console.log(reqBody);
         reqBody.ingredientId = newIngredient.id
         recipeIngredientCreate(res, reqBody);
         // return new Promise((resolve,reject) => {
@@ -50,7 +51,6 @@ async function ingredientCreate (res, reqBody, name=reqBody.name, quantity=reqBo
             return new Promise((resolve,reject) => {
                 resolve();
             })           
-
         })             
     })
 }
@@ -171,14 +171,12 @@ const createUser = (req, res) => {
             })
         })
     })
-
-
 }
 
 const createNewRecipe = (req, res) => {
+    console.log(req.body)
     Recipe.create(req.body)
     .then( async newRecipe => {
-        console.log(req.body)
         req.body.recipeId = newRecipe.id
         const reqBody = {};
         Object.assign(reqBody, req.body)
@@ -203,9 +201,81 @@ const createNewRecipe = (req, res) => {
 }
 
 const editRecipe = (req, res) => {
-    Recipe.findByPk(req.params.index)
-    .then(recipeEdit => {
-        
+    // console.log(req.body)
+    Recipe.update(req.body, {
+        where: {id: req.params.index},
+        returning: true
+    })
+    .then((updateRecipe) => {
+        req.body.step.forEach(async (step, i) => {
+        const temp = {step: step, step_number: req.body.step_number[i], id: req.body.directionId[i], recipeId: req.params.index}
+                await Direction.update(temp, {
+                    where: {id: temp.id}
+                })
+                .then((updatedDirections) => {
+                    return 
+                })
+                .catch( async (err)=> {
+                    await Direction.create(temp)
+                    .then((createdDirection)=>{
+                        return ;
+                    })
+                })
+        })
+        req.body.name.forEach(async (name, i) => {
+        const tempIn = {name: name, quantity: req.body.quantity[i], units: req.body.units[i],
+        recipeId: req.params.index, ingredientId: req.body.ingredientId[i]}
+            await RecipeIngredient.update(tempIn, {
+                where: {recipeId: tempIn.recipeId,
+                        ingredientId: tempIn.ingredientId
+                    }
+            })
+            .then((updatedRecipeIngredients) => {
+                console.log(updatedRecipeIngredients);
+                return
+                // res.redirect(`/${req.params.index}`)
+            })
+            .catch(async (err)=> {
+                await Ingredient.findOne(
+                    {
+                        where: {
+                            name: tempIn.name
+                        } 
+                    }
+                )
+                .then(async foundIngredient => {
+                    tempIn.ingredientId = foundIngredient.id
+                    console.log(foundIngredient.id)
+                    console.log(tempIn.ingredientId)
+                    console.log('Here it is failing')
+                    console.log(tempIn)
+                    await RecipeIngredient.create(tempIn)
+                    .then( (foundIngredient)=> {
+                        res.redirect(`/${req.params.index}`)
+                    })
+
+                })
+                .catch(async (err)=> {
+                    console.log("Made it here to the new ingredient")
+                    Ingredient.create(tempIn)
+                        .then(async foundIngredient => {
+                            tempIn.ingredientId = foundIngredient.id
+                            console.log(foundIngredient.id)
+                            console.log(tempIn.ingredientId)
+                            console.log('Here it is failing')
+                            console.log(tempIn)
+                            await RecipeIngredient.create(tempIn)
+                            .then( (foundIngredient)=> {
+                                res.redirect(`/${req.params.index}`)
+                            })
+                        
+                        
+                        
+                        res.redirect(`/${req.params.index}`)
+                    })
+                })
+            })
+        })
     })
 }
 
