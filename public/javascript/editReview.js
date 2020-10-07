@@ -5,7 +5,7 @@ function edit(event) {
     const editClass = event.target.classList.value.split(' ').find(htmlClass => {
         return htmlClass.startsWith("review");
     });
-    const reviewId = editClass[editClass.length-1];
+    const reviewId = editClass.split('-')[1];
     const reviewList = document.querySelectorAll(`.${editClass}`)[0];
 
     // create edit form

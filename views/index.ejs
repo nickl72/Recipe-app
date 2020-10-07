@@ -15,9 +15,9 @@
                 <% for (let i = 0; i < recipes.length; i++) { %>
                     <li class='listelements'>
                         <h4><%=recipes[i].title%></h4>
-                        <a href="/<%=recipes[i].id%>"><img class='recipeImage' src='<%=recipes[i].image%>' alt='Picture of Recipe'/></a>
+                        <a href="/index/<%=recipes[i].id%>"><img class='recipeImage' src='<%=recipes[i].image%>' alt='Picture of Recipe'/></a>
                         <p class='imgDescription'><%=recipes[i].description%></p>
-                        <a href="/<%=recipes[i].id%>">View Recipe</a>                      
+                        <a href="/index/<%=recipes[i].id%>">View Recipe</a>                      
                     </li>
                 <% } %>                
         </div>

@@ -1,5 +1,3 @@
-const express = require('express');
-const recipe = require('../models/recipe');
 const RecipeIngredient = require('../models').RecipeIngredient;
 const Recipe = require('../models').Recipe;
 const User = require('../models').User;
@@ -13,9 +11,8 @@ const renderViewPage = (req, res) => {
         res.render('index.ejs', {
             recipes: recipe,
             // user: 
-        })
-        // console.log(recipe)
-
+        })     
+    }).catch((err) => {
     })
 };
 
@@ -37,7 +34,7 @@ const renderRecipe = (req, res) => {
             order: [['step_number']]
 
         }).then(directions => {
-            // console.log(directions);
+            
             // Need findAll to sort by creation Date
             Review.findAll({
                 where: {recipeId: foundRecipe.id},
@@ -55,6 +52,8 @@ const renderRecipe = (req, res) => {
                 })
             })
         })
+    }).catch(() => {
+        res.redirect('/');
     })
 }
 
