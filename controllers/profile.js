@@ -5,6 +5,7 @@ const renderMyProfile = (req,res) => {
     if (req.user.username === null) {
         res.redirect('/auth/login');
     }
+    
     User.findByPk(req.user.id, {
         attributes: ['name', 'id', 'email'],
         include: [{
