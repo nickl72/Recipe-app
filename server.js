@@ -29,7 +29,11 @@ const verifyToken = (req, res, next) => {
 app.use('/auth', routes.auth);
 app.use('/profile', verifyToken, routes.profile)
 app.use('/review', verifyToken, routes.review)
-app.use('/', verifyToken, routes.recipe);
+app.use('/index', verifyToken, routes.recipe);
+
+app.get('/', (req, res) => {
+   res.redirect('/index');
+});
 
 app.listen(process.env.PORT, () => {
     console.log(`${process.env.PORT}`)
