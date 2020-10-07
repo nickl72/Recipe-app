@@ -1,3 +1,4 @@
+
 const User = require('../models').User;
 const Recipe = require('../models').Recipe;
 const SavedRecipes = require('../models').SavedRecipes;
@@ -61,14 +62,18 @@ const createSavedRecipe = (req, res) => {
     const savedRecpie = {userId: parseInt(req.params.userid),
     recipeId: parseInt(req.params.recpieid)}
     SavedRecipes.create(savedRecpie)
-    .then(profile => {
+    .then(redirectprofile => {
             res.redirect('/profile')
     })
+}
+const removeSavedRecipe = (req, res) => {
+
 }
 
 
 module.exports = {
     renderMyProfile,
     renderProfile,
-    createSavedRecipe
+    createSavedRecipe,
+    removeSavedRecipe
 }
