@@ -26,6 +26,9 @@
             <a href="/index/<%=user.savedRecipes[i].id%>" ><img src='<%=user.savedRecipes[i].image%>' alt='<%=user.savedRecipes[i].title%>' style="max-width: 100px; max-height: 200px;" />
             <%=user.savedRecipes[i].title%>
             </a>
+            <form action='/profile/<%=user.savedRecipes[i].id%>/<%=user.id%>?_method=DELETE' method="POST">
+                <input type="submit" value='Remove'/>
+            </form>
         </li>
     <% } %>
     </ul>

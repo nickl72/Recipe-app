@@ -67,7 +67,12 @@ const createSavedRecipe = (req, res) => {
     })
 }
 const removeSavedRecipe = (req, res) => {
-
+    SavedRecipes.destroy({
+        where: {recipeId: req.params.savedid,
+        userId: req.params.userid}
+    }).then(() => {
+    res.redirect('/profile')
+    })
 }
 
 
