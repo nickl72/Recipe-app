@@ -1,0 +1,18 @@
+h2 {
+    text-align: center;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    
+}
+.image-ingredients {
+    display: flex;
+}
+.ingredients {
+    text-align: left;
+    flex-grow: 2;
+    margin: 0, 0, 0, 500px;
+}

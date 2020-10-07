@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/recipe.css" />
     <link rel="stylesheet" href="/css/headerfooter.css" />
     <title>Recipes</title>
@@ -11,15 +12,21 @@
     <%- include('partials/header') %>
     <main>
         <h2><%=recipe.title%></h2>
-        <img src='<%=recipe.image%>' alt='<%=recipe.name%>' />
-        <h3>Ingredients</h3>
-        <ul>
-            <% recipe.Ingredients.forEach(ingredient => { %> 
-                <li><%=ingredient.name%> &nbsp;&nbsp;&nbsp; 
-                    <%=ingredient.RecipeIngredient.quantity%> 
-                    <%=ingredient.RecipeIngredient.units%></li>
-            <% }) %>
-        </ul>
+        <div class='container'>
+            <div class='image-ingredients'>
+            <img src='<%=recipe.image%>' alt='<%=recipe.name%>' />
+            <div class='ingredients'>
+                <h3>Ingredients</h3>
+                <ul>
+                    <% recipe.Ingredients.forEach(ingredient => { %> 
+                        <li><%=ingredient.name%> &nbsp;&nbsp;&nbsp; 
+                            <%=ingredient.RecipeIngredient.quantity%> 
+                            <%=ingredient.RecipeIngredient.units%></li>
+                    <% }) %>
+                </ul>
+                </div>
+            </div>
+        </div>
         <h3>Directions</h3>
         <ol>
             <% directions.forEach(direction => { %>
