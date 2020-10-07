@@ -17,7 +17,7 @@
     <ul>
         <% for (let i = 0; i < user.savedRecipes.length; i++) { %>
         <li>
-            <a href="/<%=user.savedRecipes[i].id%>" ><img src='<%=user.savedRecipes[i].image%>' alt='<%=user.savedRecipes[i].title%>' style="max-width: 100px; max-height: 200px;" />
+            <a href="/index/<%=user.savedRecipes[i].id%>" ><img src='<%=user.savedRecipes[i].image%>' alt='<%=user.savedRecipes[i].title%>' style="max-width: 100px; max-height: 200px;" />
             <%=user.savedRecipes[i].title%>
             </a>
         </li>
@@ -28,7 +28,7 @@
     <ul>
         <% for (let i = 0; i < user.CreatedRecipes.length; i++) { %>
         <li>
-            <a href="/<%=user.CreatedRecipes[i].id%>" >
+            <a href="/index/<%=user.CreatedRecipes[i].id%>" >
             <img src='<%=user.CreatedRecipes[i].image%>' alt='<%=user.CreatedRecipes[i].title%>' style="max-width: 100px; max-height: 200px;" />
             <%=user.CreatedRecipes[i].title%>
             </a>
