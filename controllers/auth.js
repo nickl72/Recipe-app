@@ -207,15 +207,27 @@ const editRecipe = (req, res) => {
         returning: true
     })
     .then((updateRecipe) => {
+        if(typeof(req.body.step)==="string") {
+            req.body.step = [req.body.step];
+            req.body.step_number = [req.body.step_number]
+            req.body.directionId = [req.body.directionId]
+            // console.log(req.body.step)
+        }
+        console.log(req.body.directionId)
         req.body.step.forEach(async (step, i) => {
+            console.log('In the for each')
         const temp = {step: step, step_number: req.body.step_number[i], id: req.body.directionId[i], recipeId: req.params.index}
+            console.log(temp.id)
+            console.log(req.body.directionId[i])
                 await Direction.update(temp, {
                     where: {id: temp.id}
                 })
                 .then((updatedDirections) => {
+                    console.log("Made it through the update")
                     return 
                 })
                 .catch( async (err)=> {
+                    console.log("Made it to the catch")
                     await Direction.create(temp)
                     .then((createdDirection)=>{
                         return ;
@@ -232,8 +244,7 @@ const editRecipe = (req, res) => {
             })
             .then((updatedRecipeIngredients) => {
                 console.log(updatedRecipeIngredients);
-                return
-                // res.redirect(`/${req.params.index}`)
+                res.redirect(`/${req.params.index}`)
             })
             .catch(async (err)=> {
                 await Ingredient.findOne(
@@ -268,9 +279,6 @@ const editRecipe = (req, res) => {
                             .then( (foundIngredient)=> {
                                 res.redirect(`/${req.params.index}`)
                             })
-                        
-                        
-                        
                         res.redirect(`/${req.params.index}`)
                     })
                 })
