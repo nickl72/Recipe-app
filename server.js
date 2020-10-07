@@ -26,7 +26,7 @@ const verifyToken = (req, res, next) => {
     })
 }
 
-app.use('/auth', routes.auth);
+app.use('/auth', verifyToken, routes.auth);
 app.use('/profile', verifyToken, routes.profile)
 app.use('/review', verifyToken, routes.review)
 app.use('/index', verifyToken, routes.recipe);

@@ -3,3 +3,7 @@
 form {
     margin: 0 10vw 10vh 10vw;
 }
+.long {
+    min-width: 75vw;
+    min-height: 30px;
+}

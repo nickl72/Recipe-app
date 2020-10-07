@@ -2,6 +2,9 @@ const User = require('../models').User;
 const Recipe = require('../models').Recipe;
 
 const renderMyProfile = (req,res) => {
+    if (req.user.username === null) {
+        res.redirect('/auth/login');
+    }
     User.findByPk(req.user.id, {
         attributes: ['name', 'id', 'email'],
         include: [{
@@ -20,6 +23,9 @@ const renderMyProfile = (req,res) => {
     res.render('profile/profile.ejs', {
         user: user
     })
+    })
+    .catch(() => {
+        res.redirect('/auth/login');
     })
 }
 
@@ -44,6 +50,9 @@ const renderProfile = (req, res) => {
             res.render('profile/friend.ejs', {
                 user: foundUser
             })
+        })
+        .catch((err) => {
+            res.redirect('/index')
         })
 }
 

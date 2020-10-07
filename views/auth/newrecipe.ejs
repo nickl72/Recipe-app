@@ -16,7 +16,6 @@
         recipe.title = ''
         recipe.image = ''
         recipe.description = ''
-        recipe.userId = ''
         recipe.Ingredients=[{name: [''], 
             RecipeIngredients: [{quantity: [''], units: ['']}]
         }]
@@ -30,7 +29,7 @@
         Title: <input type='text' name='title' value='<%=recipe.title%>' />
         Image Url: <input type='text' name='image' value="<%=recipe.image%>" />
         Description: <input type='text' name='description' value="<%=recipe.description%>" />
-        User Id: <input type='number' name='userId' value="<%=recipe.userId%>" />
+       <input class='hidden' type='number' name='userId' value="<%=user.id%>" />
 
     <h3>Ingredients</h3>
         <button id='addIngredient' type='button'>Add another ingredient</button>
@@ -45,14 +44,14 @@
                 <%}%>
             </div>
  
-    <h3>Steps</h3>
+    <h3>Directions</h3>
         <button id='addStep' type='button'>Add another step</button>
             <div id="step">
                 <%for (let i=0; i<recipe.Directions.length; i++) {%>
                     <p>
                         <input class="hidden" type="number" name="directionId" value="<%=recipe.Directions[i].id%>">
-                        <input class="stepNum" type='number' name='step_number' value="<%=recipe.Directions[i].step_number%>"/>
-                        Step Directions: <input type='text' name='step' size="150" value="<%=recipe.Directions[i].step%>"/>      
+                        <input class="stepNum hidden" type='number' name='step_number' value="<%=recipe.Directions[i].step_number%>"/>
+                        Step <%=i+1%>: <textarea class="long" wrap='soft' maxlength='255' type='text' name='step' ><%=recipe.Directions[i].step%></textarea>      
                     </p>
                 <%}%>
             </div>

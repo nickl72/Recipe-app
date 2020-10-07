@@ -62,13 +62,20 @@ const renderSignUp = (req, res) => {
 }
 
 const renderLogin = (req, res) => {
-    res.render('auth/login.ejs')
+    if (!req.query.login) {
+        req.query.login = false
+    }
+
+    res.render('auth/login.ejs',{
+        loginFailure: req.query.login
+    })
 }
 
 const renderNewRecipe = (req, res) => {
     if(req.query.edit==='false') {
         res.render('auth/newrecipe.ejs' ,{
             edit: req.query.edit,
+            user: req.user,
             recipe: {}
         })
     } else if( req.query.edit==='true') {
@@ -90,7 +97,8 @@ const renderNewRecipe = (req, res) => {
             })
             res.render('auth/newrecipe.ejs' ,{
                 edit: req.query.edit,
-                recipe: editRecipe
+                recipe: editRecipe,
+                user: req.user
             })
         })
 
@@ -107,7 +115,7 @@ const renderProfile = (req, res) => {
         }
     })
     .then(user => {
-        if(user) {
+        if(user !== null ) {
             bcrypt.compare(req.body.password, user.hashedpass, (err, match) => {
                 if (match) {
                     const token = jwt.sign(
@@ -123,11 +131,14 @@ const renderProfile = (req, res) => {
 
                     res.cookie("jwt", token);
                     res.redirect('/profile')
-                } else {
-                    res.send('Incorrect password')
-                }
+                } 
             })
-        }
+        } 
+            res.redirect('/auth/login?login=fail');
+        
+    })
+    .catch((err) => {
+        res.redirect('/auth/login');
     })
     
 }
@@ -193,7 +204,7 @@ const editRecipe = (req, res) => {
         where: {id: req.params.index},
         returning: true
     })
-    .then((updateRecipe) => {
+    .then(async (updateRecipe) => {
         if(typeof(req.body.step)!=="object") {
             req.body.step = [req.body.step];
         } 
@@ -203,6 +214,9 @@ const editRecipe = (req, res) => {
         if(typeof(req.body.directionId)!=="object") {
             req.body.directionId = [req.body.directionId]
         }
+
+
+        console.log('\n\n\nThis Runs First\n\n\n')
         req.body.step.forEach(async (step, i) => {
         const temp = {step: step, step_number: req.body.step_number[i], recipeId: req.params.index}
         if(req.body.directionId.length > i) {
@@ -220,14 +234,21 @@ const editRecipe = (req, res) => {
                         return ;
                     })
                 })
+                console.log('\nThis is the end of the steps loop\n')
         })
+        console.log('\n\nThis is after the steps for loop\n\n')
+
         if(typeof(req.body.name)==="string") {
             req.body.name = [req.body.name];
             req.body.quantity = [req.body.quantity];
             req.body.units = [req.body.units];
             req.body.ingredientId = [req.body.ingredientId];
         }
+
+
+
         req.body.name.forEach(async (name, i) => {
+            console.log('\n\nthis is when the ingredients loops starts\n\n')
         const tempIn = {name: name, quantity: req.body.quantity[i], units: req.body.units[i],
         recipeId: req.params.index, ingredientId: req.body.ingredientId[i]}
             await RecipeIngredient.update(tempIn, {
@@ -236,7 +257,7 @@ const editRecipe = (req, res) => {
                     }
             })
             .then((updatedRecipeIngredients) => {
-                // return
+                return
                 // res.redirect(`/index/${req.params.index}`)
             })
             .catch(async (err)=> {
@@ -257,7 +278,7 @@ const editRecipe = (req, res) => {
 
                 })
                 .catch(async (err)=> {
-                    Ingredient.create(tempIn)
+                    await Ingredient.create(tempIn)
                     .then(async foundIngredient => {
                         tempIn.ingredientId = foundIngredient.id
                         await RecipeIngredient.create(tempIn)
@@ -269,6 +290,7 @@ const editRecipe = (req, res) => {
                 })
             })
         })
+        console.log('\n\nthis is when we should redirect\n\n')
         res.redirect(`/index/${req.params.index}`)
     })
 }
