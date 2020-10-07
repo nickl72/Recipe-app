@@ -71,7 +71,11 @@ const deleteRecipe = (req, res) => {
                 where: {id: req.params.index}
             })
             .then(() => {
+                Review.destroy({
+                    where: {recipeId: req.params.index}
+                }).then(() => {
                 res.redirect('/profile')
+                })
             })
         })
     })
