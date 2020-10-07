@@ -2,7 +2,7 @@
 
 
 ## ERD
-![image](https://imgur.com/S0Bzxcp.png)
+![image]([Imgur](https://i.imgur.com/DRXrNjg.jpg)
 
 ## WireFrame
 ![image](https://imgur.com/F4mJNGx.png)
