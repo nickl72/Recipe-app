@@ -69,6 +69,7 @@ const renderNewRecipe = (req, res) => {
     if(req.query.edit==='false') {
         res.render('auth/newrecipe.ejs' ,{
             edit: req.query.edit,
+            user: req.user,
             recipe: {}
         })
     } else if( req.query.edit==='true') {
@@ -90,7 +91,8 @@ const renderNewRecipe = (req, res) => {
             })
             res.render('auth/newrecipe.ejs' ,{
                 edit: req.query.edit,
-                recipe: editRecipe
+                recipe: editRecipe,
+                user: req.user
             })
         })
 

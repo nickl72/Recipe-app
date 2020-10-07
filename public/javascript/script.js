@@ -29,10 +29,11 @@ function addIngredientLine() {
 
 function addStepLine() {
     const tagStep = document.createElement("p");
-    const stepNum = document.getElementsByClassName('stepNum');
+    const stepNum = document.querySelectorAll('.stepNum');
     number = parseInt(stepNum[stepNum.length-1].value);
+    console.log(stepNum);
     const numberInc = number+1;
-    const newStep =  `<input class="stepNum" type='number' name='step_number' value='${numberInc}'/> Step Directions: <input type='text' name='step' size="150"/> `
+    const newStep =  `<input class="stepNum hidden" type='number' name='step_number' value='${numberInc}'/> Step ${numberInc}: <textarea class='long' wrap='soft' maxlength='255' type='text' name='step' ></textarea> `
     tagStep.innerHTML = newStep;
     stepDiv.appendChild(tagStep);
     // const stepNumber = document.createElement("input");
