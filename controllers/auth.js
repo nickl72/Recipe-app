@@ -6,8 +6,6 @@ const RecipeIngredient = require('../models').RecipeIngredient;
 const bcrypt = require('bcryptjs'); 
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const ingredient = require('../models/ingredient');
-const { Template } = require('ejs');
 let counter = 0;
 
 async function recipeIngredientCreate(res, reqBody) {

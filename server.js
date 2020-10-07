@@ -31,7 +31,6 @@ app.use('/profile', verifyToken, routes.profile)
 app.use('/review', verifyToken, routes.review)
 app.use('/', verifyToken, routes.recipe);
 
-
 app.listen(process.env.PORT, () => {
     console.log(`${process.env.PORT}`)
 })
