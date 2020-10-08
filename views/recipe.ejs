@@ -19,11 +19,9 @@
                 <h3>Ingredients</h3>
                 <ul>
                     <% recipe.Ingredients.forEach(ingredient => { %> 
-                        <%for (let i=0; i<ingredient.RecipeIngredients.length; i++) { %>
                         <li><%=ingredient.name%> &nbsp;&nbsp;&nbsp; 
-                            <%=ingredient.RecipeIngredients[i].quantity%> 
-                            <%=ingredient.RecipeIngredients[i].units%></li>
-                        <% } %>
+                            <%=ingredient.RecipeIngredient.quantity%> 
+                            <%=ingredient.RecipeIngredient.units%></li>
                     <% }) %>
 
                 </ul>
