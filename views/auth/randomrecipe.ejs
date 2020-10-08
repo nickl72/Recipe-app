@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/newrecipe.css">
+    <link rel="stylesheet" href="/css/headerfooter.css">
+    <title>Recipes | New</title>
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <main>
+    <%
+        buttonValue = 'Create Random Recipe'
+        recipe.description = ''
+     %>
+    <form action="/auth/newRecipe" method="POST">
+    <h3>General</h3>
+        Title: <input type='text' name='title' value='<%=recipe.title%>' />
+        Image Url: <input type='text' name='image' value="<%=recipe.image%>" />
+        Description: <input type='text' name='description' value="<%=recipe.description%>" />
+       <input class='hidden' type='number' name='userId' value="<%=user.id%>" />
+
+    <h3>Ingredients</h3>
+        <button id='addIngredient' type='button'>Add another ingredient</button>
+            <div id='ingredient'>
+                <%for (let i=0; i<recipe.quantity.length; i++) {%>               
+                    <p>
+                        <input class='hidden' type="number" name='ingredientId' value=""/>
+                    Name: <input type='text' name='name' value="<%=recipe.name[i]%>"/>
+                    Amount: <input type='number' name='quantity' value="<%=recipe.quantity[i]%>" step='0.01' />
+                    Unit: <input type='text' name='units' value="<%=recipe.units[i]%>"/>
+                    </p>
+                <%}%>
+            </div>
+ 
+    <h3>Directions</h3>
+        <button id='addStep' type='button'>Add another step</button>
+            <div id="step">
+                <%for (let i=0; i<recipe.step.length; i++) {%>
+                    <p>
+                        <input class="hidden" type="number" name="directionId" value="">
+                        <input class="stepNum hidden" type='number' name='step_number' value="<%=i%>"/>
+                        Step <%=i+1%>: <textarea class="long" wrap='soft' maxlength='255' type='text' name='step' ><%=recipe.step[i]%></textarea>      
+                    </p>
+                <%}%>
+            </div>
+
+
+        <input type='submit' value="<%=buttonValue%>" />
+    </form>
+</main>
+    <%- include('../partials/footer') %>
+
+
+    <script src='/javascript/script.js'></script>
+</body>
+</html>

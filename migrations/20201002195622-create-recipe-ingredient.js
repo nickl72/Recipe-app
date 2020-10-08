@@ -34,14 +34,16 @@ module.exports = {
         defaultValue: new Date(),
         type: Sequelize.DATE
       }
-    },
-    {
-      uniqueKeys: {
-        actions_unique: {
-          fields: ['recipeId', 'ingredientId']
-        }
-      }
-    });
+    }
+    // ,
+    // {
+    //   uniqueKeys: {
+    //     actions_unique: {
+    //       fields: ['recipeId', 'ingredientId']
+    //     }
+    //   }
+    // }
+    );
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('RecipeIngredients');

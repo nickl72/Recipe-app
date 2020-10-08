@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 let counter = 0;
+const axios = require('axios').default;
 
 async function recipeIngredientCreate(res, reqBody) {
     await RecipeIngredient.create(reqBody)
@@ -72,13 +73,13 @@ const renderLogin = (req, res) => {
 }
 
 const renderNewRecipe = (req, res) => {
-    if(req.query.edit==='false') {
+    if(req.query.edit==='false'&&req.query.random!=="true") {
         res.render('auth/newrecipe.ejs' ,{
             edit: req.query.edit,
             user: req.user,
             recipe: {}
         })
-    } else if( req.query.edit==='true') {
+    } else if( req.query.edit==='true'&&req.query.random!=="true") {
         Recipe.findByPk(parseInt(req.query.recipeid), {
             include: [
             {
@@ -102,7 +103,88 @@ const renderNewRecipe = (req, res) => {
             })
         })
 
-    } else {
+    } else if(req.query.edit==='false'&&req.query.random==="true") {
+        const endPoint = "https://www.themealdb.com/api/json/v1/1/random.php";
+        axios({url: endPoint, method: 'get'})
+        .then((response) => {
+            const rex = Object.entries(response.data.meals[0]);
+            rex.splice(0,9)
+            rex.splice(40,3)
+            let name=[];
+            let ingredients=[];
+            console.log(rex)
+            rex.forEach((ing, count) => {
+                if((rex[count][1]!='' || rex[count][1])&&count<20) {
+                    name.push(rex[count][1]) 
+                }else if((rex[count][1]!='' || rex[count][1])&&count>=20){
+                    ingredients.push(rex[count][1])
+                }
+            })
+            console.log(ingredients)
+            let quantity=[];
+            let units=[];
+            ingredients.forEach((measurment, count) => {
+                if(measurment===null){
+                    return
+                } 
+                let submeasure = measurment.split('')
+                let unitstr='';
+                let numstr='';
+                if(submeasure.length>1) {
+                    submeasure.forEach((sub, counter) => {
+                    if(parseInt(sub) && (submeasure[counter+1]==='/' || submeasure[counter+1]==='.')) {
+                        if(submeasure[counter+1]==='/') {
+                            let fraction = parseInt(sub)/parseInt(submeasure[counter+2])
+                            numstr+=fraction 
+                        } else if (submeasure[counter-1]==='.' && parseInt(submeasure[counter+1])!="NaN") {
+                            numstr+=(parseInt(sub)/10);
+                        }
+                    } else if (parseInt(sub) && parseInt(submeasure[counter+1])!="NaN" && (submeasure[counter-1]==='/' || submeasure[counter-1]==='.')) {
+                        numstr+=parseInt(sub)
+                    } else if(parseInt(sub) && parseInt(submeasure[counter+1])!="NaN"){
+                        numstr+=parseInt(sub)
+                    } else if(parseInt(sub)==0) {
+                        numstr=numstr*10;
+                    } else if (sub==='/' || sub==='.' || sub===' ') {
+
+                    } else {
+                        unitstr+=sub
+                    }
+                })
+                    quantity.push(numstr)
+                    units.push(unitstr);
+                }
+            })
+            let quantitys = quantity.map(dummy => {
+                if(dummy==='') {
+                    return dummy=1;
+                }
+                return dummy;
+            })
+            let unitsSifted = units.map(dummy => {
+                if(dummy==='') {
+                    return dummy="each";
+                }
+                return dummy;
+            })
+
+            let step = response.data.meals[0].strInstructions.split('.')
+            step.pop();//removes last '' that alwasy appears
+            let randomMeal = {title: response.data.meals[0].strMeal, 
+                image: response.data.meals[0].strMealThumb, 
+                name: name, 
+                quantity: quantitys,
+                units: unitsSifted,
+                step: step
+            }
+            console.log(randomMeal)
+            res.render('auth/randomrecipe.ejs' ,{
+                edit: "random",
+                recipe: randomMeal,
+                user: req.user
+            })
+        })
+    }else {
         res.return("error");
     }
 
@@ -177,6 +259,7 @@ const createUser = (req, res) => {
 }
 
 const createNewRecipe = (req, res) => {
+    console.log(req.body);
     Recipe.create(req.body)
     .then( async newRecipe => {
         req.body.recipeId = newRecipe.id
@@ -297,7 +380,10 @@ const editRecipe = (req, res) => {
         res.redirect(`/index/${req.params.index}`)
     })
 }
-
+const logout = (req, res) => {
+    res.clearCookie('jwt');
+    res.redirect('/auth/login');
+}
 module.exports = {
     renderSignUp,
     renderLogin,
@@ -305,5 +391,8 @@ module.exports = {
     createUser,
     renderNewRecipe,
     createNewRecipe,
-    editRecipe
+    SaveRecipe,
+    editRecipe,
+    logout
 }
+

@@ -1,4 +1,4 @@
-h2 {
+h2,h3 {
     text-align: center;
 }
 .container {
@@ -15,4 +15,68 @@ h2 {
     text-align: left;
     flex-grow: 2;
     margin: 0, 0, 0, 500px;
+}
+.image-resize {
+    max-height: 50vh;
+    min-height: 300px;
+}
+.ingredient {
+    display:inline;
+}
+.ingredients-container {
+    display: flex;
+    flex-direction: column;
+    
+}
+.li-container {
+    display: flex;
+    align-content: space-between;
+}
+.quantity, .name {
+    margin: 2px;
+    
+}
+.review {
+    text-align: center;
+    list-style-type: none;
+    padding: 0;
+}
+
+.review-heading,.review-text {
+    margin: 5px;
+}
+.review-text {
+    text-align: left;
+}
+
+/* form {
+
+    text-align: center;
+} */
+.thirds{
+    display: flex;
+    justify-content: space-between;
+}
+
+.col {
+    width: 32vw;
+}
+.review-rating {
+    margin: 5px
+}
+.review-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.review-crud-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+.review li {
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 10px;
 }

@@ -14,15 +14,17 @@
         <h2><%=recipe.title%></h2>
         <div class='container'>
             <div class='image-ingredients'>
-            <img src='<%=recipe.image%>' alt='<%=recipe.name%>' />
+            <img class="image-resize"src='<%=recipe.image%>' alt='<%=recipe.name%>' />
             <div class='ingredients'>
                 <h3>Ingredients</h3>
-                <ul>
+                <ul class='ingredients-container'>
                     <% recipe.Ingredients.forEach(ingredient => { %> 
-                        <li><%=ingredient.name%> &nbsp;&nbsp;&nbsp; 
-                            <%=ingredient.RecipeIngredient.quantity%> 
-                            <%=ingredient.RecipeIngredient.units%></li>
+                        <li class='li-container'>
+                            <p class='name ingredient'><%=ingredient.name%></p> 
+                            <p class='quantity ingredient'><%=ingredient.RecipeIngredient.quantity%> <%=ingredient.RecipeIngredient.units%></p>
+                        </li>
                     <% }) %>
+
                 </ul>
                 </div>
             </div>
@@ -40,34 +42,43 @@
         </ol>
 
         <h3>Reviews</h3>
-        <% if (user.id !== null) { %>
-        <form action='/review/<%=recipe.id%>' method="POST">
-            Review: <input type="text" name="review" />
-            Rating: <input type="number" name="rating" min="0" max="5" />
-            <input type="submit" value="Add Review" />
-        </form>
-        <% } %>
-        <ul>
-            <% for (let i = 0; i < reviews.length; i++) { %>
-                <li class="review review-<%=reviews[i].id%>">
-                    <h4 class="review-heading review-<%=reviews[i].id%>">
-                        <a href='/profile/<%=reviews[i].User.username%>' ><%=reviews[i].User.name%></a>
-                        gave this recipe 
-                        <%=reviews[i].rating%> stars
-                    </h4>
-                    <p class="review-text review-<%=reviews[i].id%>"><%=reviews[i].review%></p>
-                    <% if (reviews[i].User.username === user.username) { %>
-                        <form action='/review/<%=reviews[i].id%>?_method=DELETE&recipeId=<%=recipe.id%>' method="POST">
-                            <input type="submit" value="Delete Review" />
-                        </form>
-                        <button class='edit review-<%=reviews[i].id%>'>Edit Review</button>
+        <div class='thirds'>
+            <div class="col"></div>
+            <div class="col">
+                <% if (user.id !== null) { %>
+                    <form action='/review/<%=recipe.id%>' method="POST">
+                        Review: <input type="text" name="review" />
+                        Rating: <input type="number" name="rating" min="0" max="5" />
+                        <input type="submit" value="Add Review" />
+                    </form>
                     <% } %>
-                </li>
+                    <ul class='review'>
+                        <% for (let i = 0; i < reviews.length; i++) { %>
+                            <li class="review review-<%=reviews[i].id%>">
+                                <div class='review-head'>
+                                    <h4 class="review-heading review-<%=reviews[i].id%>">
+                                        <a href='/profile/<%=reviews[i].User.username%>' ><%=reviews[i].User.name%></a>
+                                    </h4>
+                                    <p class="review-rating"><%=reviews[i].rating%> stars</p>                                    
+                                </div>
+                                <p class="review-text review-<%=reviews[i].id%>"><%=reviews[i].review%></p>
+                                <% if (reviews[i].User.username === user.username) { %>
+                                    <div class='review-crud-container'>
+                                        <form class='review-crud'action='/review/<%=reviews[i].id%>?_method=DELETE&recipeId=<%=recipe.id%>' method="POST">
+                                            <input type="submit" value="Delete Review" />
+                                        </form>
+                                        <button class='edit review-<%=reviews[i].id%> review-crud'>Edit Review</button>
+                                    </div>
 
-            <% } %>
-        </ul>
-
+                                <% } %>
+                            </li>
+                        <% } %>
+                    </ul>
+            </div>
+            <div class="col"></div>
+        </div>
     </main>
+    <script src="/javascript/recipe.js"></script>
     <%- include('partials/footer') %>
     <script src='/javascript/editReview.js'></script>
 </body>
