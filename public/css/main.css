@@ -23,3 +23,9 @@ img {
     border-radius: 10px;
     border: 3px solid #654236;
 }
+.button, button {
+    font-size: large;
+    font-family: 'Montserrat';
+    border-radius: 5px;
+    
+}

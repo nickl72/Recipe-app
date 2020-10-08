@@ -17,7 +17,7 @@
         <li>email: <%=user.email%></li>
     </ul>
     <form action='/auth/new?_method=get&edit=false' method="POST">
-        <input type="submit" value="New Recipe">
+        <input class='button' type="submit" value="New Recipe">
     </form>
     <form action='/auth/new?_method=get&edit=false&random=true' method="POST">
         <input class='hidden' type="submit" value="Random Recipe">
@@ -42,10 +42,10 @@
             <%=user.CreatedRecipes[i].title%>
             </a>
             <form action='/index/<%=user.CreatedRecipes[i].id%>?_method=DELETE' method="POST">
-                <input type="submit" value='Delete'/>
+                <input class='button' type="submit" value='Delete'/>
             </form>
             <form action='/auth/new?_method=get&recipeid=<%=user.CreatedRecipes[i].id%>&edit=true' method="POST">
-                <input type="submit" value='Edit'/>
+                <input class='button' type="submit" value='Edit'/>
             </form>
         </li>
     <% } %>

@@ -10,6 +10,7 @@
 </head>
 <body>
     <%- include('../partials/header') %>
+    <main>
     <%if (edit==="false") {
         buttonValue = 'Create Recipe'
         path='/auth/newRecipe'
@@ -63,7 +64,7 @@
 
         <input class='button' type='submit' value="<%=buttonValue%>" />
     </form>
-
+    </main>
     <%- include('../partials/footer') %>
 
 

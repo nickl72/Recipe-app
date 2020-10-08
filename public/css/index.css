@@ -43,4 +43,14 @@ h4 {
 }
 a {
     margin: 4px;
+    color: black;
+}
+.link {
+    text-decoration: none;
+    background: linear-gradient(rgb(160, 160, 160),rgb(220, 220, 220),rgb(160, 160, 160));
+    border-radius: 3px;
+    padding: 3px;
+    box-shadow: 1px 1px 1px 1px rgba(0,0,0,.3);
+    font-weight: 800;
+
 }
