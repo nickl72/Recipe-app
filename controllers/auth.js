@@ -297,7 +297,10 @@ const editRecipe = (req, res) => {
         res.redirect(`/index/${req.params.index}`)
     })
 }
-
+const logout = (req, res) => {
+    res.clearCookie('jwt');
+    res.redirect('/auth/login');
+}
 module.exports = {
     renderSignUp,
     renderLogin,
@@ -305,5 +308,6 @@ module.exports = {
     createUser,
     renderNewRecipe,
     createNewRecipe,
-    editRecipe
+    editRecipe,
+    logout
 }
