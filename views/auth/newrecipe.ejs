@@ -20,10 +20,14 @@
             RecipeIngredients: [{quantity: [''], units: ['']}]
         }]
         recipe.Directions =[{step_number: [1], step: ['']}]
-    } else {%>
-        <%buttonValue = 'Edit Recipe'
-        path=`/auth/${recipe.id}?_method=PUT`%>
-    <%}%>
+    } else if(edit==="random") {
+        buttonValue = 'Create Random Recipe'
+        recipe.description = ''
+        
+    } else >
+        buttonValue = 'Edit Recipe'
+        path=`/auth/${recipe.id}?_method=PUT`
+    } %>
     <form action="<%=path%>" method="POST">
     <h3>General</h3>
         Title: <input type='text' name='title' value='<%=recipe.title%>' />

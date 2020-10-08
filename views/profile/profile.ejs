@@ -19,6 +19,9 @@
     <form action='/auth/new?_method=get&edit=false' method="POST">
         <input type="submit" value="New Recipe">
     </form>
+    <form action='/auth/new?_method=get&edit=false&random=true' method="POST">
+        <input type="submit" value="Random Recipe">
+    </form>
     <h3>My Saved Recipes</h3>
     <ul>
         <% for (let i = 0; i < user.savedRecipes.length; i++) { %>

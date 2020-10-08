@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 let counter = 0;
+const axios = require('axios').default;
 
 async function recipeIngredientCreate(res, reqBody) {
     await RecipeIngredient.create(reqBody)
@@ -72,13 +73,13 @@ const renderLogin = (req, res) => {
 }
 
 const renderNewRecipe = (req, res) => {
-    if(req.query.edit==='false') {
+    if(req.query.edit==='false'&&req.query.random!=="true") {
         res.render('auth/newrecipe.ejs' ,{
             edit: req.query.edit,
             user: req.user,
             recipe: {}
         })
-    } else if( req.query.edit==='true') {
+    } else if( req.query.edit==='true'&&req.query.random!=="true") {
         Recipe.findByPk(parseInt(req.query.recipeid), {
             include: [
             {
@@ -102,7 +103,81 @@ const renderNewRecipe = (req, res) => {
             })
         })
 
-    } else {
+    } else if(req.query.edit==='false'&&req.query.random==="true") {
+        const endPoint = "https://www.themealdb.com/api/json/v1/1/random.php";
+        axios({url: endPoint, method: 'get'})
+        .then((response) => {
+            const rex = Object.entries(response.data.meals[0]);
+            rex.splice(0,9)
+            rex.splice(40,3)
+            let name=[];
+            let ingredients=[];
+            rex.forEach((ing, count) => {
+                if((rex[count][1]!='' || rex[count][1])&&count<20) {
+                    name.push(rex[count][1]) 
+                }else if((rex[count][1]!='' || rex[count][1])&&count>=20){
+                    ingredients.push(rex[count][1].split(' '))
+                }
+            })
+            let quantity=[];
+            let units=[];
+            ingredients.forEach((measurement, count) => {
+                if(ingredients[count].length===1) {
+                    let str = ingredients[count][0].split('');
+                    let num='';
+                    let unit='';
+                    str.forEach((string, counter) => {
+                        if(parseInt(str[counter])>=0) {
+                            num+=str[counter]
+                        } else {
+                            unit+=str[counter]
+                        }
+                    })
+                    if(num==='') {
+                        num+='1';
+                    } else if (unit==='') {
+                        unit+='ea'
+                    }
+                    quantity.push(num)
+                    units.push(unit)
+                } else if(ingredients[count].length===2) {
+                    if(ingredients[count][0]==='') {
+                        
+                    }
+                    else if(ingredients[count][0]!==''&&ingredients[count][1]==='') {
+                        quantity.push(ingredients[count]);
+                        units.push('each');
+                    } 
+                    quantity.push(ingredients[count][0]);
+                    units.push(ingredients[count][1]);
+                } else if(ingredients[count].length>=3) {
+                    if(!parseInt(ingredients[count][1])) {
+                        quantity.push(ingredients[count][0]);
+                        units.push(ingredients[count][1]);
+                    } else {
+                        const sum = parseInt(ingredients[count][0])+parseFloat(ingredients[count][1]);
+                        quantity.push(sum);
+                        units.push(ingredients[count][2])
+                    }
+                }
+            })
+            let step = response.data.meals[0].strInstructions.split('.')
+            step.pop();//removes last '' that alwasy appears
+            let randomMeal = {title: response.data.meals[0].strMeal, 
+                image: response.data.meals[0].strMealThumb, 
+                name: name, 
+                quantity: quantity,
+                units: units,
+                step: step
+            }
+            console.log(randomMeal)
+            res.render('auth/randomrecipe.ejs' ,{
+                edit: "random",
+                recipe: randomMeal,
+                user: req.user
+            })
+        })
+    }else {
         res.return("error");
     }
 
@@ -174,6 +249,7 @@ const createUser = (req, res) => {
 }
 
 const createNewRecipe = (req, res) => {
+    console.log(req.body);
     Recipe.create(req.body)
     .then( async newRecipe => {
         req.body.recipeId = newRecipe.id
