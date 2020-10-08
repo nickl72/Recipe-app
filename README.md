@@ -1,5 +1,8 @@
 # Recipe-app
 
+## Description
+This is an app that allows users to create, view, save and review recipes
+
 ## Project Links
 - [github repo](https://github.com/nickl72/Recipe-app/tree/main "github repository")
 - [deployment](https://nick-and-david-recipe-app.herokuapp.com/ "Recipe App")
