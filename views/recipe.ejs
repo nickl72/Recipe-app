@@ -29,6 +29,11 @@
                 </div>
             </div>
         </div>
+        <% if (user.id !== null) { %>
+            <form action='/profile/<%=recipe.id%>/<%=user.id%>' method="POST">
+                <input type="submit" value="Save recipe" />
+            </form>
+        <% } %>
         <h3>Directions</h3>
         <ol>
             <% directions.forEach(direction => { %>

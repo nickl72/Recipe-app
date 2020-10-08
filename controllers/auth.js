@@ -391,6 +391,8 @@ module.exports = {
     createUser,
     renderNewRecipe,
     createNewRecipe,
+    SaveRecipe,
     editRecipe,
     logout
 }
+
