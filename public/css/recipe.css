@@ -1,4 +1,4 @@
-h2 {
+h2,h3 {
     text-align: center;
 }
 .container {
@@ -15,4 +15,37 @@ h2 {
     text-align: left;
     flex-grow: 2;
     margin: 0, 0, 0, 500px;
+}
+.image-resize {
+    max-height: 50vh;
+    min-height: 300px;
+}
+.ingredient {
+    display:inline;
+}
+.ingredients-container {
+    display: flex;
+    flex-direction: column;
+    
+}
+.li-container {
+    display: flex;
+    align-content: space-between;
+}
+.quantity, .name {
+    margin: 2px;
+    
+}
+.review {
+    text-align: center;
+    list-style-type: none;
+    padding: 0;
+}
+
+.review-heading,.review-text {
+    margin: 5px;
+}
+
+form {
+    text-align: center;
 }

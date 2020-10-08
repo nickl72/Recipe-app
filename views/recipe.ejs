@@ -14,14 +14,15 @@
         <h2><%=recipe.title%></h2>
         <div class='container'>
             <div class='image-ingredients'>
-            <img src='<%=recipe.image%>' alt='<%=recipe.name%>' />
+            <img class="image-resize"src='<%=recipe.image%>' alt='<%=recipe.name%>' />
             <div class='ingredients'>
                 <h3>Ingredients</h3>
-                <ul>
+                <ul class='ingredients-container'>
                     <% recipe.Ingredients.forEach(ingredient => { %> 
-                        <li><%=ingredient.name%> &nbsp;&nbsp;&nbsp; 
-                            <%=ingredient.RecipeIngredient.quantity%> 
-                            <%=ingredient.RecipeIngredient.units%></li>
+                        <li class='li-container'>
+                            <p class='name ingredient'><%=ingredient.name%></p> 
+                            <p class='quantity ingredient'><%=ingredient.RecipeIngredient.quantity%> <%=ingredient.RecipeIngredient.units%></p>
+                        </li>
                     <% }) %>
 
                 </ul>
@@ -43,7 +44,7 @@
             <input type="submit" value="Add Review" />
         </form>
         <% } %>
-        <ul>
+        <ul class='review'>
             <% for (let i = 0; i < reviews.length; i++) { %>
                 <li class="review review-<%=reviews[i].id%>">
                     <h4 class="review-heading review-<%=reviews[i].id%>">
@@ -59,11 +60,11 @@
                         <button class='edit review-<%=reviews[i].id%>'>Edit Review</button>
                     <% } %>
                 </li>
-
             <% } %>
         </ul>
 
     </main>
+    <script src="/javascript/recipe.js"></script>
     <%- include('partials/footer') %>
     <script src='/javascript/editReview.js'></script>
 </body>
