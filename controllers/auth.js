@@ -131,10 +131,13 @@ const renderProfile = (req, res) => {
 
                     res.cookie("jwt", token);
                     res.redirect('/profile')
-                } 
+                } else {
+                    res.redirect('/auth/login?login=fail');
+                }
             })
-        } 
+        } else {
             res.redirect('/auth/login?login=fail');
+        }
         
     })
     .catch((err) => {
@@ -294,7 +297,10 @@ const editRecipe = (req, res) => {
         res.redirect(`/index/${req.params.index}`)
     })
 }
-
+const logout = (req, res) => {
+    res.clearCookie('jwt');
+    res.redirect('/auth/login');
+}
 module.exports = {
     renderSignUp,
     renderLogin,
@@ -302,5 +308,6 @@ module.exports = {
     createUser,
     renderNewRecipe,
     createNewRecipe,
-    editRecipe
+    editRecipe,
+    logout
 }
