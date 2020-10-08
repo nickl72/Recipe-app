@@ -27,7 +27,8 @@ const renderRecipe = (req, res) => {
                     // attributes: ['units']
             }}]
     })
-    .then(foundRecipe => {    
+    .then(foundRecipe => { 
+        console.log(foundRecipe.Ingredients[7])   
         // Need findAll to sort by step_number
         Direction.findAll({
             where: {recipeId: foundRecipe.id},

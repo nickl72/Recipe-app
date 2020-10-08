@@ -112,62 +112,69 @@ const renderNewRecipe = (req, res) => {
             rex.splice(40,3)
             let name=[];
             let ingredients=[];
+            console.log(rex)
             rex.forEach((ing, count) => {
                 if((rex[count][1]!='' || rex[count][1])&&count<20) {
                     name.push(rex[count][1]) 
                 }else if((rex[count][1]!='' || rex[count][1])&&count>=20){
-                    ingredients.push(rex[count][1].split(' '))
+                    ingredients.push(rex[count][1])
                 }
             })
+            console.log(ingredients)
             let quantity=[];
             let units=[];
-            ingredients.forEach((measurement, count) => {
-                if(ingredients[count].length===1) {
-                    let str = ingredients[count][0].split('');
-                    let num='';
-                    let unit='';
-                    str.forEach((string, counter) => {
-                        if(parseInt(str[counter])>=0) {
-                            num+=str[counter]
-                        } else {
-                            unit+=str[counter]
+            ingredients.forEach((measurment, count) => {
+                if(measurment===null){
+                    return
+                } 
+                let submeasure = measurment.split('')
+                let unitstr='';
+                let numstr='';
+                if(submeasure.length>1) {
+                    submeasure.forEach((sub, counter) => {
+                    if(parseInt(sub) && (submeasure[counter+1]==='/' || submeasure[counter+1]==='.')) {
+                        if(submeasure[counter+1]==='/') {
+                            let fraction = parseInt(sub)/parseInt(submeasure[counter+2])
+                            numstr+=fraction 
+                        } else if (submeasure[counter-1]==='.' && parseInt(submeasure[counter+1])!="NaN") {
+                            numstr+=(parseInt(sub)/10);
                         }
-                    })
-                    if(num==='') {
-                        num+='1';
-                    } else if (unit==='') {
-                        unit+='ea'
-                    }
-                    quantity.push(num)
-                    units.push(unit)
-                } else if(ingredients[count].length===2) {
-                    if(ingredients[count][0]==='') {
-                        
-                    }
-                    else if(ingredients[count][0]!==''&&ingredients[count][1]==='') {
-                        quantity.push(ingredients[count]);
-                        units.push('each');
-                    } 
-                    quantity.push(ingredients[count][0]);
-                    units.push(ingredients[count][1]);
-                } else if(ingredients[count].length>=3) {
-                    if(!parseInt(ingredients[count][1])) {
-                        quantity.push(ingredients[count][0]);
-                        units.push(ingredients[count][1]);
+                    } else if (parseInt(sub) && parseInt(submeasure[counter+1])!="NaN" && (submeasure[counter-1]==='/' || submeasure[counter-1]==='.')) {
+                        numstr+=parseInt(sub)
+                    } else if(parseInt(sub) && parseInt(submeasure[counter+1])!="NaN"){
+                        numstr+=parseInt(sub)
+                    } else if(parseInt(sub)==0) {
+                        numstr=numstr*10;
+                    } else if (sub==='/' || sub==='.' || sub===' ') {
+
                     } else {
-                        const sum = parseInt(ingredients[count][0])+parseFloat(ingredients[count][1]);
-                        quantity.push(sum);
-                        units.push(ingredients[count][2])
+                        unitstr+=sub
                     }
+                })
+                    quantity.push(numstr)
+                    units.push(unitstr);
                 }
             })
+            let quantitys = quantity.map(dummy => {
+                if(dummy==='') {
+                    return dummy=1;
+                }
+                return dummy;
+            })
+            let unitsSifted = units.map(dummy => {
+                if(dummy==='') {
+                    return dummy="each";
+                }
+                return dummy;
+            })
+
             let step = response.data.meals[0].strInstructions.split('.')
             step.pop();//removes last '' that alwasy appears
             let randomMeal = {title: response.data.meals[0].strMeal, 
                 image: response.data.meals[0].strMealThumb, 
                 name: name, 
-                quantity: quantity,
-                units: units,
+                quantity: quantitys,
+                units: unitsSifted,
                 step: step
             }
             console.log(randomMeal)
