@@ -1,7 +1,7 @@
 # Recipe-app
 
 ## Description
-This is an app that allows users to create, view, save and review recipes
+This is an app that allows users to create, view, save and review recipes.
 
 ## Project Links
 - [github repo](https://github.com/nickl72/Recipe-app/tree/main "github repository")
@@ -46,7 +46,7 @@ This is an app that allows users to create, view, save and review recipes
 5.	As a cook, I want to see an image of the completed recipe
 6.	As a paranoid individual, I don’t want to be required to make an account to view recipes
 7.	As a recipe poster, I want to be able to update/edit recipes
-8.  As a cook, I would like to see who all has liked the recipe and what there ratings were
+8.  As a cook, I would like to see who all has liked the recipe and what their ratings were
 9.  As a cook, I would like to be able to save recipes that I like
 10. As a recipe poster, I do not want people to be able to change my recipes
 
