@@ -52,6 +52,8 @@
 - Sequlize for database creation and migration
 - HTML, CSS, and JavaScript
 - Axios to generate random recipes
+- Express framework to build our server and router
+- Bcrypt and Json Web Tokens for auth functions
 
 ## Issues and Resolutions
 - We encountered an issue with updating recipe ingredients and redirecting back to our recipe show page. The tables were updating but not fast enough to display on the redirect. We were unable to resolve the issue so we redirected the user back to their profile page after editing a recipe. 
