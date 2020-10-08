@@ -31,7 +31,7 @@ app.use('/profile', verifyToken, routes.profile)
 app.use('/review', verifyToken, routes.review)
 app.use('/index', verifyToken, routes.recipe);
 
-app.get('/', (req, res) => {
+app.use((req, res, next) => {
    res.redirect('/index');
 });
 
