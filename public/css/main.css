@@ -3,14 +3,23 @@ body, html {
     margin: 0;
 }
 body {
-    height: 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+    font-size: large;
+
 }
 body {
     background: #D6D4A0;
 }
-
+main {
+    flex: 1;
+}
 .hidden {
     display: none;
+}
+img {
+    border-radius: 10px;
+    border: 3px solid #654236;
 }

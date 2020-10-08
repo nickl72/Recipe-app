@@ -1,0 +1,35 @@
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+form {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+form p {
+    align-self: flex-start;
+    margin: 0 0 0 10px;
+}
+input {
+    display: block;
+    width: 20vw;
+    min-width: 300px;
+    margin: 1vh;
+}
+.text-box {
+    border-radius: 5px;
+    line-height: 30px;
+    font-size: 30px;
+    background: rgb(238, 238, 238);
+}
+.button {
+    background: #58A4B0;
+    border-radius: 5px;
+    height: 30px;
+}
+.username {
+    text-transform: lowercase;
+}
