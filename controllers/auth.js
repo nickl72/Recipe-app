@@ -302,7 +302,6 @@ const editRecipe = (req, res) => {
         }
 
 
-        console.log('\n\n\nThis Runs First\n\n\n')
         req.body.step.forEach(async (step, i) => {
         const temp = {step: step, step_number: req.body.step_number[i], recipeId: req.params.index}
         if(req.body.directionId.length > i) {
@@ -320,9 +319,7 @@ const editRecipe = (req, res) => {
                         return ;
                     })
                 })
-                console.log('\nThis is the end of the steps loop\n')
         })
-        console.log('\n\nThis is after the steps for loop\n\n')
 
         if(typeof(req.body.name)==="string") {
             req.body.name = [req.body.name];
@@ -334,7 +331,6 @@ const editRecipe = (req, res) => {
 
 
         req.body.name.forEach(async (name, i) => {
-            console.log('\n\nthis is when the ingredients loops starts\n\n')
         const tempIn = {name: name, quantity: req.body.quantity[i], units: req.body.units[i],
         recipeId: req.params.index, ingredientId: req.body.ingredientId[i]}
             await RecipeIngredient.update(tempIn, {
@@ -344,7 +340,6 @@ const editRecipe = (req, res) => {
             })
             .then((updatedRecipeIngredients) => {
                 return
-                // res.redirect(`/index/${req.params.index}`)
             })
             .catch(async (err)=> {
                 await Ingredient.findOne(
@@ -359,7 +354,6 @@ const editRecipe = (req, res) => {
                     await RecipeIngredient.create(tempIn)
                     .then( (foundIngredient)=> {
                         return
-                        // res.redirect(`/index/${req.params.index}`)
                     })
 
                 })
@@ -376,8 +370,7 @@ const editRecipe = (req, res) => {
                 })
             })
         })
-        console.log('\n\nthis is when we should redirect\n\n')
-        res.redirect(`/index/${req.params.index}`)
+        res.redirect(`/profile`)
     })
 }
 const logout = (req, res) => {
@@ -394,3 +387,4 @@ module.exports = {
     editRecipe,
     logout
 }
+

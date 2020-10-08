@@ -1,4 +1,4 @@
-h2 {
+h2,h3 {
     text-align: center;
 }
 .container {
@@ -16,3 +16,107 @@ h2 {
     flex-grow: 2;
     margin: 0, 0, 0, 500px;
 }
+.image-resize {
+    max-height: 50vh;
+    min-height: 300px;
+}
+.ingredient {
+    display:inline;
+}
+.ingredients-container {
+    display: flex;
+    flex-direction: column;
+    
+}
+.li-container {
+    display: flex;
+    align-content: space-between;
+}
+.quantity, .name {
+    margin: 2px;
+    
+}
+.review {
+    text-align: center;
+    list-style-type: none;
+    padding: 0;
+}
+
+.review-heading,.review-text {
+    margin: 5px;
+}
+.review-text {
+    text-align: left;
+}
+
+.thirds{
+    display: flex;
+    justify-content: space-between;
+}
+
+.col {
+    max-width: 32vw;
+}
+
+.review-rating {
+    margin: 5px
+}
+.review-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.review-crud-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+.review li {
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.save {
+    padding: 25px 0 0 0;
+    text-align: center;
+}
+
+.submit-review {
+    display: flex;
+    flex-direction: column;
+
+}
+.review-container {
+    display: flex;
+    justify-content: space-between;
+    align-items:flex-start;
+    padding: 0 0 10px 0;
+}
+.review-container .rating-input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-shrink: 0;
+}
+.review-container .review-input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 2;
+}
+.review-text { 
+    width: 100%;
+    margin: 0;
+}
+.submit-review .button {
+    width: 50%;
+    align-self: center;
+}
+
+.center-col {
+    width: 32vw;
+    min-width: 500px;
+}
+

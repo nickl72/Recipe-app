@@ -13,8 +13,9 @@ function edit(event) {
     editForm.action = `/review/${reviewId}?_method=PUT`;
     editForm.method = 'POST';
 
+
     // create and populate review input box
-    const p = reviewList.querySelector('p');
+    const p = reviewList.querySelector('.review-text');
     const review = document.createElement('input');
     review.type = "text";
     review.name = "review";
@@ -32,7 +33,7 @@ function edit(event) {
     rating.name = "rating";
     rating.min = '0';
     rating.max = '5';
-    rating.value = reviewList.querySelector('h4').innerText.split(' ').reverse()[1];
+    rating.value = reviewList.querySelector('.review-rating').innerText.split(' ').reverse()[1];
     editForm.appendChild(rating);
 
     // Create submit button

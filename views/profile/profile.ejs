@@ -17,7 +17,7 @@
         <li>email: <%=user.email%></li>
     </ul>
     <form action='/auth/new?_method=get&edit=false' method="POST">
-        <input type="submit" value="New Recipe">
+        <input class='button' type="submit" value="New Recipe">
     </form>
     <form action='/auth/new?_method=get&edit=false&random=true' method="POST">
         <input class='hidden' type="submit" value="Random Recipe">
@@ -25,10 +25,13 @@
     <h3>My Saved Recipes</h3>
     <ul>
         <% for (let i = 0; i < user.savedRecipes.length; i++) { %>
-        <li>
+        <li class='listelements'>
+            <h4><%=user.savedRecipes[i].title%></h4>
             <a href="/index/<%=user.savedRecipes[i].id%>" ><img src='<%=user.savedRecipes[i].image%>' alt='<%=user.savedRecipes[i].title%>' style="max-width: 100px; max-height: 200px;" />
-            <%=user.savedRecipes[i].title%>
             </a>
+            <form action='/profile/<%=user.savedRecipes[i].id%>/<%=user.id%>?_method=DELETE' method="POST">
+                <input type="submit" value='Remove'/>
+            </form>
         </li>
     <% } %>
     </ul>
@@ -36,16 +39,16 @@
     <h3>My Created Recipes</h3>
     <ul>
         <% for (let i = 0; i < user.CreatedRecipes.length; i++) { %>
-        <li>
+        <li class='listelements'>
+            <h4><%=user.CreatedRecipes[i].title%></h4>
             <a href="/index/<%=user.CreatedRecipes[i].id%>" >
             <img src='<%=user.CreatedRecipes[i].image%>' alt='<%=user.CreatedRecipes[i].title%>' style="max-width: 100px; max-height: 200px;" />
-            <%=user.CreatedRecipes[i].title%>
             </a>
             <form action='/index/<%=user.CreatedRecipes[i].id%>?_method=DELETE' method="POST">
-                <input type="submit" value='Delete'/>
+                <input class='button' type="submit" value='Delete'/>
             </form>
             <form action='/auth/new?_method=get&recipeid=<%=user.CreatedRecipes[i].id%>&edit=true' method="POST">
-                <input type="submit" value='Edit'/>
+                <input class='button' type="submit" value='Edit'/>
             </form>
         </li>
     <% } %>
