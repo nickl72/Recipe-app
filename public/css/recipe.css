@@ -45,7 +45,38 @@ h2,h3 {
 .review-heading,.review-text {
     margin: 5px;
 }
+.review-text {
+    text-align: left;
+}
 
-form {
+/* form {
+
     text-align: center;
+} */
+.thirds{
+    display: flex;
+    justify-content: space-between;
+}
+
+.col {
+    width: 32vw;
+}
+.review-rating {
+    margin: 5px
+}
+.review-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.review-crud-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+.review li {
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 10px;
 }
