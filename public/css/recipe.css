@@ -49,18 +49,15 @@ h2,h3 {
     text-align: left;
 }
 
-/* form {
-
-    text-align: center;
-} */
 .thirds{
     display: flex;
     justify-content: space-between;
 }
 
 .col {
-    width: 32vw;
+    max-width: 32vw;
 }
+
 .review-rating {
     margin: 5px
 }
@@ -80,6 +77,7 @@ h2,h3 {
     border: 1px solid black;
     border-radius: 10px;
 }
+
 .save {
     padding: 25px 0 0 0;
     text-align: center;
@@ -116,3 +114,9 @@ h2,h3 {
     width: 50%;
     align-self: center;
 }
+
+.center-col {
+    width: 32vw;
+    min-width: 500px;
+}
+
