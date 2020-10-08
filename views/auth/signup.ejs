@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/headerfooter.css">
+    <link rel="stylesheet" href="/css/auth.css" />
     <title>Recipes</title>
 </head>
 <body>
     <%- include('../partials/header') %>
     <main>
         <form action='/auth/createUser' method='POST'>
-            Name: <input type="text" name='name'/>
-            Username: <input type='text' name='username'/>
-            Password: <input type='text' name='hashedpass'/>
-            Email: <input tyep='text' name='email'>
-            <input type='submit' value='Sign Up'/>
+            <p>Name:</p> <input class='text-box' type="text" name='name'/>
+            <p>Username:</p> <input class='text-box username' type='text' name='username'/>
+            <p>Password:</p> <input class='text-box' type='password' name='hashedpass'/>
+            <p>Email:</p> <input class='text-box' type='text' name='email'>
+            <input class='button' type='submit' value='Sign Up'/>
         </form>
     </main>
     <%- include('../partials/footer') %>

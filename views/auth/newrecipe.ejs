@@ -10,6 +10,7 @@
 </head>
 <body>
     <%- include('../partials/header') %>
+    <main>
     <%if (edit==="false") {
         buttonValue = 'Create Recipe'
         path='/auth/newRecipe'
@@ -42,7 +43,7 @@
                     <p>
                         <input class='hidden' type="number" name='ingredientId' value="<%=recipe.Ingredients[i].id%>"/>
                     Name: <input type='text' name='name' value="<%=recipe.Ingredients[i].name%>"/>
-                    Amount: <input type='number' name='quantity' value="<%=recipe.Ingredients[i].RecipeIngredients[0].quantity%>" />
+                    Amount: <input class='number' type='number' name='quantity' value="<%=recipe.Ingredients[i].RecipeIngredients[0].quantity%>" />
                     Unit: <input type='text' name='units' value="<%=recipe.Ingredients[i].RecipeIngredients[0].units%>"/>
                     </p>
                 <%}%>
@@ -55,15 +56,15 @@
                     <p>
                         <input class="hidden" type="number" name="directionId" value="<%=recipe.Directions[i].id%>">
                         <input class="stepNum hidden" type='number' name='step_number' value="<%=recipe.Directions[i].step_number%>"/>
-                        Step <%=i+1%>: <textarea class="long" wrap='soft' maxlength='255' type='text' name='step' ><%=recipe.Directions[i].step%></textarea>      
+                        <p class="step">Step <%=i+1%>:</p> <textarea class="long" wrap='soft' maxlength='255' type='text' name='step' ><%=recipe.Directions[i].step%></textarea>      
                     </p>
                 <%}%>
             </div>
 
 
-        <input type='submit' value="<%=buttonValue%>" />
+        <input class='button' type='submit' value="<%=buttonValue%>" />
     </form>
-
+    </main>
     <%- include('../partials/footer') %>
 
 

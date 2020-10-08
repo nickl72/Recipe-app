@@ -29,6 +29,11 @@
                 </div>
             </div>
         </div>
+        <% if (user.id !== null) { %>
+            <form class='save' action='/profile/<%=recipe.id%>/<%=user.id%>' method="POST">
+                <input class='button' type="submit" value="Save recipe" />
+            </form>
+        <% } %>
         <h3>Directions</h3>
         <ol>
             <% directions.forEach(direction => { %>
@@ -41,10 +46,12 @@
             <div class="col outside-col"></div>
             <div class="col center-col">
                 <% if (user.id !== null) { %>
-                    <form action='/review/<%=recipe.id%>' method="POST">
-                        Review: <input type="text" name="review" />
-                        Rating: <input type="number" name="rating" min="0" max="5" />
-                        <input type="submit" value="Add Review" />
+                    <form class='submit-review' action='/review/<%=recipe.id%>' method="POST" autocomplete="off">
+                        <div class='review-container'>
+                            <div class='review-input'><p>Review:</p> <input class='review-text' type="text" name="review" /></div>  
+                            <div class='rating-input'><p>Rating:</p> <input class='number' type="number" name="rating" min="0" max="5" required/></div>
+                        </div>
+                        <input class='button' type="submit" value="Add Review" />
                     </form>
                     <% } %>
                     <ul class='review'>
