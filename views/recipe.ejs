@@ -38,8 +38,8 @@
 
         <h3>Reviews</h3>
         <div class='thirds'>
-            <div class="col"></div>
-            <div class="col">
+            <div class="col outside-col"></div>
+            <div class="col center-col">
                 <% if (user.id !== null) { %>
                     <form action='/review/<%=recipe.id%>' method="POST">
                         Review: <input type="text" name="review" />
@@ -54,7 +54,7 @@
                                     <h4 class="review-heading review-<%=reviews[i].id%>">
                                         <a href='/profile/<%=reviews[i].User.username%>' ><%=reviews[i].User.name%></a>
                                     </h4>
-                                    <p class="review-rating"><%=reviews[i].rating%> stars</p>                                    
+                                    <p class="review-rating"><%=reviews[i].rating%></p>                                    
                                 </div>
                                 <p class="review-text review-<%=reviews[i].id%>"><%=reviews[i].review%></p>
                                 <% if (reviews[i].User.username === user.username) { %>
@@ -70,7 +70,7 @@
                         <% } %>
                     </ul>
             </div>
-            <div class="col"></div>
+            <div class="col outside-col"></div>
         </div>
     </main>
     <script src="/javascript/recipe.js"></script>

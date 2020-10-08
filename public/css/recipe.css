@@ -49,18 +49,15 @@ h2,h3 {
     text-align: left;
 }
 
-/* form {
-
-    text-align: center;
-} */
 .thirds{
     display: flex;
     justify-content: space-between;
 }
 
 .col {
-    width: 32vw;
+    max-width: 32vw;
 }
+
 .review-rating {
     margin: 5px
 }
@@ -79,4 +76,8 @@ h2,h3 {
     margin: 5px;
     border: 1px solid black;
     border-radius: 10px;
+}
+.center-col {
+    width: 32vw;
+    min-width: 500px;
 }
