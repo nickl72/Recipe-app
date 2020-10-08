@@ -206,10 +206,13 @@ const renderProfile = (req, res) => {
 
                     res.cookie("jwt", token);
                     res.redirect('/profile')
-                } 
+                } else {
+                    res.redirect('/auth/login?login=fail');
+                }
             })
-        } 
+        } else {
             res.redirect('/auth/login?login=fail');
+        }
         
     })
     .catch((err) => {

@@ -11,7 +11,7 @@ li {
     width: 20vw;
     background: #58A4B0;
     border-radius: 5%;
-    box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.35);
+    box-shadow: 5px 5px 15px 0px rgba(218,118,53);
 }
 .recipeImage {
     text-align: center;
@@ -22,13 +22,9 @@ li {
 ul {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
 }
-ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
+
 .listelements {
     display: flex;
     flex-direction: column;
@@ -37,6 +33,7 @@ ul {
 }
 h4 {
     margin: 5px 0 5px 0;
+    color: #654236;
 }
 .imgDescription {
     margin: 2px;
